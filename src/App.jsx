@@ -85,12 +85,12 @@ function timeAgo(iso) {
 
 function useApps() {
   const [apps, setApps] = useState(() => {
-    try { const s = localStorage.getItem("oats_apps_v1"); return s ? JSON.parse(s) : APPS_DEFAULT; }
+    try { const s = localStorage.getItem("oats_apps_v2"); return s ? JSON.parse(s) : APPS_DEFAULT; }
     catch { return APPS_DEFAULT; }
   });
   const save = (updated) => {
     setApps(updated);
-    try { localStorage.setItem("oats_apps_v1", JSON.stringify(updated)); } catch {}
+    try { localStorage.setItem("oats_apps_v2", JSON.stringify(updated)); } catch {}
   };
   const update = (id, patch) => save(apps.map(a => a.id === id ? { ...a, ...patch } : a));
   return [apps, update];
