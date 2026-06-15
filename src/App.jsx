@@ -25,7 +25,7 @@ const APPS_DEFAULT = [
   { id:"skynet-waterglass", name:"SkyNet / WaterGlass", emoji:"👁", version:"v0.5", status:"live", progress:45,
     stack:["React","Claude API","YouTube"],
     description:"Looking Glass Intelligence Engine. Transcript analysis & esoteric market intelligence for WatersAbove.",
-    url:"https://skynet-waterglass.vercel.app", ghRepo:"this-is-oats-mgmt/skynet_waterglass", color:T.teal },
+    url:"https://skynet-waterglass.vercel.app/indexes/looking_glass_mindmap.html", ghRepo:"this-is-oats-mgmt/skynet_waterglass", color:T.teal },
   { id:"esoteric-agent", name:"WatersAbove Sentinel", emoji:"🔮", version:"v1.0", status:"live", progress:60,
     stack:["HTML","JS","Netlify"],
     description:"2026 Fire Horse Decoder. Esoteric calendar intelligence, alchemical timeline.",
