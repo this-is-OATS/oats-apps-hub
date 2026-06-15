@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const T = {
   bg:"#0A0A0A", surface:"#111111", card:"#161616",
@@ -8,59 +8,63 @@ const T = {
   green:"#6DBF6D", amber:"#E0A030", red:"#E07B6A",
 };
 
+// version: manually set per app. ghRepo: "org/repo" for live commit fetch (public repos only).
 const APPS_DEFAULT = [
-  { id:"oats-mgmt", name:"OATS APPS", emoji:"⬡", status:"live", progress:78,
+  { id:"oats-mgmt", name:"OATS APPS", emoji:"⬡", version:"v0.8.15", status:"live", progress:78,
     stack:["React","Vite","Firebase","Vercel"],
     description:"The hub. Project & production management for Fook'n Oats Enterprises.",
-    url:"https://oats-mgmt.vercel.app", repo:"https://github.com/this-is-OATS/O.A.T.S.MGMT-APP", color:T.gold },
-  { id:"fookn-oats-main", name:"Fook'n Oats", emoji:"🌾", status:"live", progress:55,
+    url:"https://oats-mgmt.vercel.app", ghRepo:"this-is-OATS/O.A.T.S.MGMT-APP", color:T.gold },
+  { id:"fookn-oats-main", name:"Fook'n Oats", emoji:"🌾", version:"v1.0", status:"live", progress:55,
     stack:["HTML","JS","Netlify"],
     description:"The Will-Oats Universe. Production services, creative brands, music, touring stories.",
-    url:"https://fookn-oats.enterprises", repo:"https://github.com/this-is-oats-mgmt/fookn-oats-main", color:T.gold },
-  { id:"gigwars", name:"Gig Wars", emoji:"🎮", status:"live", progress:22,
+    url:"https://fookn-oats.enterprises", ghRepo:"this-is-oats-mgmt/fookn-oats-main", color:T.gold },
+  { id:"gigwars", name:"Gig Wars", emoji:"🎮", version:"v0.2", status:"live", progress:22,
     stack:["JS","Browser","TI-85 aesthetic"],
     description:"TI-85 graphing calculator REIMAGINED. DrugWars × rave/touring world.",
-    url:"https://gigwars.vercel.app", repo:"https://github.com/this-is-OATS/gigwars", color:T.green },
-  { id:"skynet-waterglass", name:"SkyNet / WaterGlass", emoji:"👁", status:"live", progress:45,
+    url:"https://gigwars.vercel.app", ghRepo:"this-is-OATS/gigwars", color:T.green },
+  { id:"skynet-waterglass", name:"SkyNet / WaterGlass", emoji:"👁", version:"v0.5", status:"live", progress:45,
     stack:["React","Claude API","YouTube"],
     description:"Looking Glass Intelligence Engine. Transcript analysis & esoteric market intelligence for WatersAbove.",
-    url:"https://skynet-waterglass.vercel.app", repo:"https://github.com/this-is-oats-mgmt/skynet_waterglass", color:T.teal },
-  { id:"esoteric-agent", name:"WatersAbove Sentinel", emoji:"🔮", status:"live", progress:60,
+    url:"https://skynet-waterglass.vercel.app", ghRepo:"this-is-oats-mgmt/skynet_waterglass", color:T.teal },
+  { id:"esoteric-agent", name:"WatersAbove Sentinel", emoji:"🔮", version:"v1.0", status:"live", progress:60,
     stack:["HTML","JS","Netlify"],
-    description:"2026 Fire Horse Decoder. Esoteric calendar intelligence, alchemical timeline, numerological engine.",
-    url:"https://esotericagent.netlify.app", repo:"https://github.com/this-is-oats-mgmt/skynet_waterglass", color:T.teal },
-  { id:"oats-notes", name:"OATS Notes", emoji:"📝", status:"live", progress:35,
+    description:"2026 Fire Horse Decoder. Esoteric calendar intelligence, alchemical timeline.",
+    url:"https://esotericagent.netlify.app", ghRepo:"this-is-oats-mgmt/skynet_waterglass", color:T.teal },
+  { id:"oats-notes", name:"OATS Notes", emoji:"📝", version:"v0.3", status:"live", progress:35,
     stack:["React","Next.js","Vercel"],
     description:"Dump the decisions, pick up the wins. Quick-capture notes and wins app.",
-    url:"https://oats-app.vercel.app", repo:null, color:T.textMid },
-  { id:"lx-supertech", name:"LX Powerbook", emoji:"🔦", status:"live", progress:40,
+    url:"https://oats-app.vercel.app", ghRepo:null, color:T.textMid },
+  { id:"lx-supertech", name:"LX Powerbook", emoji:"🔦", version:"v0.4", status:"live", progress:40,
     stack:["JS","Excel","Netlify"],
     description:"Touring lighting production toolkit. Excel-based light write & show file management.",
-    url:"https://lx-powerbook.netlify.app", repo:"https://github.com/this-is-oats-mgmt/LX_POWERBOOK", color:T.amber },
-  { id:"oats-apps-hub", name:"OATS Apps Hub", emoji:"⬡", status:"live", progress:75,
+    url:"https://lx-powerbook.netlify.app", ghRepo:"this-is-oats-mgmt/LX_POWERBOOK", color:T.amber },
+  { id:"oats-apps-hub", name:"OATS Apps Hub", emoji:"⬡", version:"v1.2", status:"live", progress:75,
     stack:["React","Vite","Vercel"],
     description:"Standalone public directory of all OATS Apps Series. This page.",
-    url:"https://oats-apps-hub.vercel.app", repo:"https://github.com/this-is-OATS/oats-apps-hub", color:T.gold },
-  { id:"princess-comms", name:"Princess Comms", emoji:"🌙", status:"in-dev", progress:40,
+    url:"https://oats-apps-hub.vercel.app", ghRepo:"this-is-OATS/oats-apps-hub", color:T.gold },
+  { id:"princess-comms", name:"Princess Comms", emoji:"🌙", version:"v0.4", status:"in-dev", progress:40,
     stack:["React Native","GPS","Firebase"],
     description:"GPS-triggered scavenger hunt app. Milwaukee-Chicago corridor. Celestial visuals.",
-    url:null, repo:null, color:T.purple },
-  { id:"shotsort", name:"ShotSort", emoji:"🔍", status:"in-dev", progress:60,
+    url:null, ghRepo:null, color:T.purple },
+  { id:"shotsort", name:"ShotSort", emoji:"🔍", version:"v0.6", status:"in-dev", progress:60,
     stack:["Flask","Python","Claude Vision"],
     description:"Screenshot text extractor. Sorting ~2,600 iCloud screenshots into HQ zones.",
-    url:null, repo:"https://github.com/this-is-oats-mgmt/shotsort", color:T.blue },
-  { id:"will-oats-tree", name:"Will Oats Tree", emoji:"🌳", status:"in-dev", progress:5,
+    url:null, ghRepo:"this-is-oats-mgmt/shotsort", color:T.blue },
+  { id:"will-oats-tree", name:"Will Oats Tree", emoji:"🌳", version:"v0.0", status:"in-dev", progress:5,
     stack:["TBD"],
     description:"Personal timeline tree and master life map — OATS intelligence engine.",
-    url:null, repo:"https://github.com/this-is-oats-mgmt/will-oats-tree", color:T.green },
-  { id:"encycle", name:"Encycle-Oats-Paedia", emoji:"📼", status:"planned", progress:8,
+    url:null, ghRepo:"this-is-oats-mgmt/will-oats-tree", color:T.green },
+  { id:"encycle", name:"Encycle-Oats-Paedia", emoji:"📼", version:"v0.0", status:"planned", progress:8,
     stack:["Audio","AI","Archive"],
     description:"Personal POV audio chronicle system. Twin knowledge with WatersAbove.",
-    url:null, repo:null, color:T.amber },
-  { id:"convergance", name:"Convergance Tool", emoji:"⟁", status:"planned", progress:5,
+    url:null, ghRepo:null, color:T.amber },
+  { id:"convergance", name:"Convergance Tool", emoji:"⟁", version:"v0.0", status:"planned", progress:5,
     stack:["TBD"], description:"Convergance. Purpose TBD.",
-    url:null, repo:"https://github.com/this-is-oats-mgmt/convergance_tool", color:T.purple },
+    url:null, ghRepo:"this-is-oats-mgmt/convergance_tool", color:T.purple },
 ];
+
+// Public GitHub repos we can fetch commit data from without a token
+const PUBLIC_REPOS = new Set(["this-is-OATS/O.A.T.S.MGMT-APP","this-is-OATS/gigwars","this-is-OATS/oats-apps-hub"]);
 
 const STATUS_META = {
   "live":    { label:"LIVE",    color:T.green  },
@@ -68,6 +72,16 @@ const STATUS_META = {
   "planned": { label:"PLANNED",color:T.blue   },
   "paused":  { label:"PAUSED", color:T.textDim},
 };
+
+function timeAgo(iso) {
+  if (!iso) return null;
+  const diff = (Date.now() - new Date(iso)) / 1000;
+  if (diff < 60) return "just now";
+  if (diff < 3600) return `${Math.floor(diff/60)}m ago`;
+  if (diff < 86400) return `${Math.floor(diff/3600)}h ago`;
+  if (diff < 604800) return `${Math.floor(diff/86400)}d ago`;
+  return `${Math.floor(diff/604800)}w ago`;
+}
 
 function useApps() {
   const [apps, setApps] = useState(() => {
@@ -82,18 +96,47 @@ function useApps() {
   return [apps, update];
 }
 
+// Fetch latest commit for a public GitHub repo
+async function fetchCommit(ghRepo) {
+  try {
+    const r = await fetch(`https://api.github.com/repos/${ghRepo}/commits?per_page=1`, {
+      headers: { Accept: "application/vnd.github.v3+json" }
+    });
+    if (!r.ok) return null;
+    const [commit] = await r.json();
+    return {
+      sha: commit.sha.slice(0,7),
+      message: commit.commit.message.split("\n")[0].slice(0,60),
+      date: commit.commit.author.date,
+    };
+  } catch { return null; }
+}
+
 export default function App() {
   const [apps, updateApp] = useApps();
   const [editing, setEditing] = useState(null);
+  const [commits, setCommits] = useState({});
+  const [loading, setLoading] = useState(true);
 
   const statusMeta = (s) => STATUS_META[s] || { label: s.toUpperCase(), color: T.textDim };
   const counts = Object.fromEntries(
     Object.keys(STATUS_META).map(s => [s, apps.filter(a => a.status === s).length])
   );
 
+  // Fetch commits for all public repos on mount
+  useEffect(() => {
+    const publicApps = apps.filter(a => a.ghRepo && PUBLIC_REPOS.has(a.ghRepo));
+    const uniqueRepos = [...new Set(publicApps.map(a => a.ghRepo))];
+    Promise.all(
+      uniqueRepos.map(repo => fetchCommit(repo).then(data => [repo, data]))
+    ).then(results => {
+      setCommits(Object.fromEntries(results));
+      setLoading(false);
+    });
+  }, []);
+
   return (
     <div style={{ minHeight:"100vh", background:T.bg, color:T.text, fontFamily:"'Inter',-apple-system,system-ui,sans-serif", display:"flex", justifyContent:"center" }}>
-      {/* iPhone-width shell — always 390px, centered on desktop */}
       <div style={{ width:"100%", maxWidth:390, display:"flex", flexDirection:"column", minHeight:"100vh" }}>
 
         {/* ── STATUS BAR SPACER ── */}
@@ -138,17 +181,20 @@ export default function App() {
             </div>
           </div>
 
-          {/* ── APP LIST ── single column always */}
+          {/* ── APP LIST ── */}
           <div style={{ display:"flex", flexDirection:"column", gap:10 }}>
             {apps.map(app => {
               const meta = statusMeta(app.status);
               const isEditing = editing === app.id;
+              const commit = app.ghRepo ? commits[app.ghRepo] : null;
+              const hasLiveCommit = commit && PUBLIC_REPOS.has(app.ghRepo);
+
               return (
                 <div key={app.id}
                   onClick={() => setEditing(isEditing ? null : app.id)}
                   style={{ background:T.card, border:`1px solid ${isEditing ? app.color+"60" : T.border}`, borderRadius:16, padding:"16px", cursor:"pointer", transition:"border-color 0.15s" }}>
 
-                  {/* Top row */}
+                  {/* Top row: icon + name + status chip */}
                   <div style={{ display:"flex", alignItems:"flex-start", justifyContent:"space-between", marginBottom:10 }}>
                     <div style={{ display:"flex", alignItems:"center", gap:10, flex:1, minWidth:0 }}>
                       <div style={{ width:40, height:40, borderRadius:10, background:app.color+"18", border:`1px solid ${app.color}35`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:20, flexShrink:0 }}>{app.emoji}</div>
@@ -163,7 +209,46 @@ export default function App() {
                   </div>
 
                   {/* Description */}
-                  <div style={{ fontSize:12, color:T.textMid, lineHeight:1.55, marginBottom:12 }}>{app.description}</div>
+                  <div style={{ fontSize:12, color:T.textMid, lineHeight:1.55, marginBottom:10 }}>{app.description}</div>
+
+                  {/* ── BUILD STATUS ROW ── */}
+                  <div style={{ background:T.surface, borderRadius:8, padding:"8px 10px", marginBottom:12, border:`1px solid ${T.border}` }}>
+                    <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", gap:8 }}>
+                      {/* Version */}
+                      <span style={{ fontSize:10, fontFamily:"monospace", color:app.color, fontWeight:700, letterSpacing:"0.04em", flexShrink:0 }}>{app.version}</span>
+
+                      {/* Commit message or loading */}
+                      {hasLiveCommit ? (
+                        <span style={{ fontSize:9, fontFamily:"monospace", color:T.textDim, overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap", flex:1, textAlign:"center" }}>
+                          {commit.message}
+                        </span>
+                      ) : app.ghRepo && !PUBLIC_REPOS.has(app.ghRepo) ? (
+                        <span style={{ fontSize:9, fontFamily:"monospace", color:T.textDim, flex:1, textAlign:"center" }}>private repo</span>
+                      ) : loading && app.ghRepo ? (
+                        <span style={{ fontSize:9, fontFamily:"monospace", color:T.textDim, flex:1, textAlign:"center" }}>fetching…</span>
+                      ) : (
+                        <span style={{ fontSize:9, fontFamily:"monospace", color:T.textDim, flex:1, textAlign:"center" }}>—</span>
+                      )}
+
+                      {/* Time ago */}
+                      {hasLiveCommit && (
+                        <span style={{ fontSize:9, fontFamily:"monospace", color:T.textDim, flexShrink:0 }}>{timeAgo(commit.date)}</span>
+                      )}
+
+                      {/* Live dot for live apps */}
+                      {app.status === "live" && (
+                        <div style={{ width:6, height:6, borderRadius:"50%", background:T.green, flexShrink:0, boxShadow:`0 0 4px ${T.green}` }} />
+                      )}
+                    </div>
+
+                    {/* SHA badge for public repos */}
+                    {hasLiveCommit && (
+                      <div style={{ marginTop:5, display:"flex", alignItems:"center", gap:6 }}>
+                        <span style={{ fontSize:8, fontFamily:"monospace", color:T.textDim, background:T.card, border:`1px solid ${T.border}`, borderRadius:3, padding:"1px 5px" }}>{commit.sha}</span>
+                        <span style={{ fontSize:8, fontFamily:"monospace", color:T.green }}>● deployed</span>
+                      </div>
+                    )}
+                  </div>
 
                   {/* Progress */}
                   <div style={{ marginBottom:12 }}>
@@ -177,10 +262,10 @@ export default function App() {
                   </div>
 
                   {/* Links */}
-                  {(app.url || app.repo) && (
+                  {(app.url || app.ghRepo) && (
                     <div style={{ display:"flex", gap:7 }}>
                       {app.url && <a href={app.url} target="_blank" rel="noreferrer" onClick={e=>e.stopPropagation()} style={{ fontSize:10, fontFamily:"monospace", color:T.gold, textDecoration:"none", background:T.gold+"11", border:`1px solid ${T.gold}30`, borderRadius:6, padding:"5px 12px", letterSpacing:"0.04em", minHeight:34, display:"flex", alignItems:"center" }}>↗ live</a>}
-                      {app.repo && <a href={app.repo} target="_blank" rel="noreferrer" onClick={e=>e.stopPropagation()} style={{ fontSize:10, fontFamily:"monospace", color:T.textDim, textDecoration:"none", background:"transparent", border:`1px solid ${T.border}`, borderRadius:6, padding:"5px 12px", letterSpacing:"0.04em", minHeight:34, display:"flex", alignItems:"center" }}>⌥ repo</a>}
+                      {app.ghRepo && <a href={`https://github.com/${app.ghRepo}`} target="_blank" rel="noreferrer" onClick={e=>e.stopPropagation()} style={{ fontSize:10, fontFamily:"monospace", color:T.textDim, textDecoration:"none", background:"transparent", border:`1px solid ${T.border}`, borderRadius:6, padding:"5px 12px", letterSpacing:"0.04em", minHeight:34, display:"flex", alignItems:"center" }}>⌥ repo</a>}
                     </div>
                   )}
 
