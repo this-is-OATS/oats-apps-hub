@@ -86,7 +86,7 @@ function timeAgo(iso) {
 function useApps() {
   const [apps, setApps] = useState(() => {
     try {
-      const s = localStorage.getItem("oats_apps_v2");
+      const s = localStorage.getItem("oats_apps_v3");
       if (!s) return APPS_DEFAULT;
       const saved = JSON.parse(s);
       // Always override version + url from hardcoded defaults so they never go stale
@@ -99,7 +99,7 @@ function useApps() {
   });
   const save = (updated) => {
     setApps(updated);
-    try { localStorage.setItem("oats_apps_v2", JSON.stringify(updated)); } catch {}
+    try { localStorage.setItem("oats_apps_v3", JSON.stringify(updated)); } catch {}
   };
   const update = (id, patch) => save(apps.map(a => a.id === id ? { ...a, ...patch } : a));
   return [apps, update];
