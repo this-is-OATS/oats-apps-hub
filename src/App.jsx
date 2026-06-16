@@ -10,7 +10,7 @@ const T = {
 
 // version: manually set per app. ghRepo: "org/repo" for live commit fetch (public repos only).
 const APPS_DEFAULT = [
-  { id:"oats-mgmt", name:"OATS APPS", emoji:"⬡", version:"v0.8.15", status:"live", progress:78,
+  { id:"oats-mgmt", name:"OATS APPS", emoji:"⬡", version:"v0.8.16", status:"live", progress:78,
     stack:["React","Vite","Firebase","Vercel"],
     description:"The hub. Project & production management for Fook'n Oats Enterprises.",
     url:"https://oats-mgmt.vercel.app", ghRepo:"this-is-OATS/O.A.T.S.MGMT-APP", color:T.gold },
@@ -38,7 +38,7 @@ const APPS_DEFAULT = [
     stack:["JS","Excel","Netlify"],
     description:"Touring lighting production toolkit. Excel-based light write & show file management.",
     url:"https://lx-powerbook.netlify.app", ghRepo:"this-is-oats-mgmt/LX_POWERBOOK", color:T.amber },
-  { id:"oats-apps-hub", name:"OATS Apps Hub", emoji:"⬡", version:"v1.2", status:"live", progress:75,
+  { id:"oats-apps-hub", name:"OATS Apps Hub", emoji:"⬡", version:"v1.4", status:"live", progress:75,
     stack:["React","Vite","Vercel"],
     description:"Standalone public directory of all OATS Apps Series. This page.",
     url:"https://oats-apps-hub.vercel.app", ghRepo:"this-is-OATS/oats-apps-hub", color:T.gold },
@@ -85,8 +85,17 @@ function timeAgo(iso) {
 
 function useApps() {
   const [apps, setApps] = useState(() => {
-    try { const s = localStorage.getItem("oats_apps_v2"); return s ? JSON.parse(s) : APPS_DEFAULT; }
-    catch { return APPS_DEFAULT; }
+    try {
+      const s = localStorage.getItem("oats_apps_v2");
+      if (!s) return APPS_DEFAULT;
+      const saved = JSON.parse(s);
+      // Always override version + url from hardcoded defaults so they never go stale
+      return APPS_DEFAULT.map(def => {
+        const cached = saved.find(a => a.id === def.id);
+        if (!cached) return def;
+        return { ...cached, version: def.version, url: def.url, ghRepo: def.ghRepo };
+      });
+    } catch { return APPS_DEFAULT; }
   });
   const save = (updated) => {
     setApps(updated);
