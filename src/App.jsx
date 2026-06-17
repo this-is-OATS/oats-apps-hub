@@ -38,7 +38,7 @@ const APPS_DEFAULT = [
     stack:["JS","Excel","Netlify"],
     description:"Touring lighting production toolkit. Excel-based light write & show file management.",
     url:"https://lx-powerbook.netlify.app", ghRepo:"this-is-oats-mgmt/LX_POWERBOOK", color:T.amber },
-  { id:"oats-apps-hub", name:"OATS Apps Hub", emoji:"⬡", version:"v1.9", status:"live", progress:75,
+  { id:"oats-apps-hub", name:"OATS Apps Hub", emoji:"⬡", version:"v2.0", status:"live", progress:75,
     stack:["React","Vite","Vercel"],
     description:"Standalone public directory of all OATS Apps Series. This page.",
     url:"https://oats-apps-hub.vercel.app", ghRepo:"this-is-OATS/oats-apps-hub", color:T.gold },
@@ -122,6 +122,45 @@ async function fetchCommit(ghRepo) {
   } catch { return null; }
 }
 
+// Fetch og:image for a URL via allorigins proxy (CORS-safe)
+async function fetchOgImage(url) {
+  try {
+    const proxy = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
+    const r = await fetch(proxy);
+    const { contents } = await r.json();
+    const m = contents.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i)
+           || contents.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
+    return m ? m[1] : null;
+  } catch { return null; }
+}
+
+function AppIcon({ app }) {
+  const [ogImg, setOgImg] = useState(null);
+  const [failed, setFailed] = useState(false);
+
+  useEffect(() => {
+    if (!app.url) return;
+    fetchOgImage(app.url).then(img => { if (img) setOgImg(img); });
+  }, [app.url]);
+
+  const showOg = ogImg && !failed;
+
+  return (
+    <div style={{ width:40, height:40, borderRadius:10, background:app.color+"18", border:`1px solid ${app.color}35`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:20, flexShrink:0, overflow:"hidden" }}>
+      {showOg ? (
+        <img
+          src={ogImg}
+          onError={() => setFailed(true)}
+          style={{ width:"100%", height:"100%", objectFit:"cover", borderRadius:9 }}
+          alt=""
+        />
+      ) : (
+        app.emoji
+      )}
+    </div>
+  );
+}
+
 export default function App() {
   const [apps, updateApp] = useApps();
   const [editing, setEditing] = useState(null);
@@ -159,7 +198,7 @@ export default function App() {
             <div>
               <div style={{ fontSize:13, fontWeight:800, color:T.gold, fontFamily:"monospace", letterSpacing:"0.1em", textTransform:"uppercase", lineHeight:1.2 }}>OATS APPS</div>
               <div style={{ fontSize:8, color:T.textDim, fontFamily:"monospace", letterSpacing:"0.1em", textTransform:"uppercase" }}>ai oatmeal coding division</div>
-              <div style={{ fontSize:8, color:T.gold, fontFamily:"monospace", opacity:0.5, marginTop:1 }}>v1.9 · 2026.06.16</div>
+              <div style={{ fontSize:8, color:T.gold, fontFamily:"monospace", opacity:0.5, marginTop:1 }}>v2.0 · 2026.06.16</div>
             </div>
           </div>
           <div style={{ display:"flex", gap:6 }}>
@@ -211,7 +250,7 @@ export default function App() {
                   {/* Top row: icon + name + status chip */}
                   <div style={{ display:"flex", alignItems:"flex-start", justifyContent:"space-between", marginBottom:10 }}>
                     <div style={{ display:"flex", alignItems:"center", gap:10, flex:1, minWidth:0 }}>
-                      <div style={{ width:40, height:40, borderRadius:10, background:app.color+"18", border:`1px solid ${app.color}35`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:20, flexShrink:0 }}>{app.emoji}</div>
+                      <AppIcon app={app} />
                       <div style={{ minWidth:0 }}>
                         <div style={{ fontSize:14, fontWeight:700, color:T.text, lineHeight:1.2 }}>{app.name}</div>
                         <div style={{ display:"flex", gap:4, marginTop:4, flexWrap:"wrap" }}>
