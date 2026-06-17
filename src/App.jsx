@@ -10,7 +10,7 @@ const T = {
 
 // version: manually set per app. ghRepo: "org/repo" for live commit fetch (public repos only).
 const APPS_DEFAULT = [
-  { id:"oats-mgmt", name:"OATS APPS", emoji:"⬡", version:"v0.8.16", status:"live", progress:78,
+  { id:"oats-mgmt", name:"OATS MGMT", emoji:"⬡", version:"v0.8.16", status:"live", progress:78,
     stack:["React","Vite","Firebase","Vercel"],
     description:"The hub. Project & production management for Fook'n Oats Enterprises.",
     url:"https://oats-mgmt.vercel.app", ghRepo:"this-is-OATS/O.A.T.S.MGMT-APP", color:T.gold },
