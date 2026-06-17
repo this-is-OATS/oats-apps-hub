@@ -38,7 +38,7 @@ const APPS_DEFAULT = [
     stack:["JS","Excel","Netlify"],
     description:"Touring lighting production toolkit. Excel-based light write & show file management.",
     url:"https://lx-powerbook.netlify.app", ghRepo:"this-is-oats-mgmt/LX_POWERBOOK", color:T.amber },
-  { id:"oats-apps-hub", name:"OATS Apps Hub", emoji:"⬡", version:"v1.5", status:"live", progress:75,
+  { id:"oats-apps-hub", name:"OATS Apps Hub", emoji:"⬡", version:"v1.7", status:"live", progress:75,
     stack:["React","Vite","Vercel"],
     description:"Standalone public directory of all OATS Apps Series. This page.",
     url:"https://oats-apps-hub.vercel.app", ghRepo:"this-is-OATS/oats-apps-hub", color:T.gold },
@@ -50,10 +50,10 @@ const APPS_DEFAULT = [
     stack:["Flask","Python","Claude Vision"],
     description:"Screenshot text extractor. Sorting ~2,600 iCloud screenshots into HQ zones.",
     url:null, ghRepo:"this-is-oats-mgmt/shotsort", color:T.blue },
-  { id:"will-oats-tree", name:"Will Oats Tree", emoji:"🌳", version:"v0.0", status:"in-dev", progress:5,
-    stack:["TBD"],
-    description:"Personal timeline tree and master life map — OATS intelligence engine.",
-    url:null, ghRepo:"this-is-oats-mgmt/will-oats-tree", color:T.green },
+  { id:"will-oats-tree", name:"Will Oats Tree", emoji:"🌳", version:"v3.0", status:"live", progress:70,
+    stack:["Three.js","WebGL","Vercel"],
+    description:"3D rainbow willow tree. 12-zone life encyclopedia · energy source code · FOE.",
+    url:"https://will-oats-tree.vercel.app", ghRepo:"this-is-OATS/will-oats-tree", color:T.green },
   { id:"encycle", name:"Encycle-Oats-Paedia", emoji:"📼", version:"v0.0", status:"planned", progress:8,
     stack:["Audio","AI","Archive"],
     description:"Personal POV audio chronicle system. Twin knowledge with WatersAbove.",
@@ -159,7 +159,7 @@ export default function App() {
             <div>
               <div style={{ fontSize:13, fontWeight:800, color:T.gold, fontFamily:"monospace", letterSpacing:"0.1em", textTransform:"uppercase", lineHeight:1.2 }}>OATS APPS</div>
               <div style={{ fontSize:8, color:T.textDim, fontFamily:"monospace", letterSpacing:"0.1em", textTransform:"uppercase" }}>ai oatmeal coding division</div>
-              <div style={{ fontSize:8, color:T.gold, fontFamily:"monospace", opacity:0.5, marginTop:1 }}>v1.6 · 2026.06.16</div>
+              <div style={{ fontSize:8, color:T.gold, fontFamily:"monospace", opacity:0.5, marginTop:1 }}>v1.7 · 2026.06.16</div>
             </div>
           </div>
           <a href="https://oats-mgmt.vercel.app" style={{ fontSize:10, color:T.gold, fontFamily:"monospace", textDecoration:"none", border:`1px solid ${T.gold}40`, borderRadius:6, padding:"5px 10px", background:T.gold+"11" }}>mgmt →</a>
@@ -218,19 +218,6 @@ export default function App() {
                     </div>
                     <div style={{ fontSize:8, fontFamily:"monospace", color:meta.color, background:meta.color+"18", border:`1px solid ${meta.color}40`, borderRadius:20, padding:"3px 9px", letterSpacing:"0.08em", flexShrink:0, marginLeft:8 }}>{meta.label}</div>
                   </div>
-
-                  {/* Preview thumbnail */}
-                  {app.url && (
-                    <div style={{ marginBottom:10, borderRadius:8, overflow:"hidden", border:`1px solid ${app.color}25`, background:T.surface, aspectRatio:"16/9", position:"relative" }}>
-                      <img
-                        src={`https://api.microlink.io/?url=${encodeURIComponent(app.url)}&screenshot=true&meta=false&embed=screenshot.url`}
-                        alt={app.name}
-                        style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}
-                        loading="lazy"
-                        onError={e => { e.target.parentNode.style.display="none"; }}
-                      />
-                    </div>
-                  )}
 
                   {/* Description */}
                   <div style={{ fontSize:12, color:T.textMid, lineHeight:1.55, marginBottom:10 }}>{app.description}</div>
