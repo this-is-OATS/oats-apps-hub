@@ -38,7 +38,7 @@ const APPS_DEFAULT = [
     stack:["JS","Excel","Netlify"],
     description:"Touring lighting production toolkit. Excel-based light write & show file management.",
     url:"https://lx-powerbook.netlify.app", ghRepo:"this-is-oats-mgmt/LX_POWERBOOK", color:T.amber },
-  { id:"oats-apps-hub", name:"OATS Apps Hub", emoji:"⬡", version:"v1.7", status:"live", progress:75,
+  { id:"oats-apps-hub", name:"OATS Apps Hub", emoji:"⬡", version:"v1.8", status:"live", progress:75,
     stack:["React","Vite","Vercel"],
     description:"Standalone public directory of all OATS Apps Series. This page.",
     url:"https://oats-apps-hub.vercel.app", ghRepo:"this-is-OATS/oats-apps-hub", color:T.gold },
@@ -87,20 +87,20 @@ function timeAgo(iso) {
 function useApps() {
   const [apps, setApps] = useState(() => {
     try {
-      const s = localStorage.getItem("oats_apps_v3");
+      const s = localStorage.getItem("oats_apps_v4");
       if (!s) return APPS_DEFAULT;
       const saved = JSON.parse(s);
       // Always override version + url from hardcoded defaults so they never go stale
       return APPS_DEFAULT.map(def => {
         const cached = saved.find(a => a.id === def.id);
         if (!cached) return def;
-        return { ...cached, version: def.version, url: def.url, ghRepo: def.ghRepo };
+        return { ...cached, version: def.version, url: def.url, ghRepo: def.ghRepo, stack: def.stack, description: def.description, status: def.status, progress: def.progress };
       });
     } catch { return APPS_DEFAULT; }
   });
   const save = (updated) => {
     setApps(updated);
-    try { localStorage.setItem("oats_apps_v3", JSON.stringify(updated)); } catch {}
+    try { localStorage.setItem("oats_apps_v4", JSON.stringify(updated)); } catch {}
   };
   const update = (id, patch) => save(apps.map(a => a.id === id ? { ...a, ...patch } : a));
   return [apps, update];
@@ -159,7 +159,7 @@ export default function App() {
             <div>
               <div style={{ fontSize:13, fontWeight:800, color:T.gold, fontFamily:"monospace", letterSpacing:"0.1em", textTransform:"uppercase", lineHeight:1.2 }}>OATS APPS</div>
               <div style={{ fontSize:8, color:T.textDim, fontFamily:"monospace", letterSpacing:"0.1em", textTransform:"uppercase" }}>ai oatmeal coding division</div>
-              <div style={{ fontSize:8, color:T.gold, fontFamily:"monospace", opacity:0.5, marginTop:1 }}>v1.7 · 2026.06.16</div>
+              <div style={{ fontSize:8, color:T.gold, fontFamily:"monospace", opacity:0.5, marginTop:1 }}>v1.8 · 2026.06.16</div>
             </div>
           </div>
           <a href="https://oats-mgmt.vercel.app" style={{ fontSize:10, color:T.gold, fontFamily:"monospace", textDecoration:"none", border:`1px solid ${T.gold}40`, borderRadius:6, padding:"5px 10px", background:T.gold+"11" }}>mgmt →</a>
