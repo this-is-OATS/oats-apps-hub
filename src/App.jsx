@@ -38,7 +38,7 @@ const APPS_DEFAULT = [
     stack:["JS","Excel","Netlify"],
     description:"Touring lighting production toolkit. Excel-based light write & show file management.",
     url:"https://lx-powerbook.netlify.app", ghRepo:"this-is-oats-mgmt/LX_POWERBOOK", color:T.amber },
-  { id:"oats-apps-hub", name:"OATS Apps Hub", emoji:"⬡", version:"v1.8", status:"live", progress:75,
+  { id:"oats-apps-hub", name:"OATS Apps Hub", emoji:"⬡", version:"v1.9", status:"live", progress:75,
     stack:["React","Vite","Vercel"],
     description:"Standalone public directory of all OATS Apps Series. This page.",
     url:"https://oats-apps-hub.vercel.app", ghRepo:"this-is-OATS/oats-apps-hub", color:T.gold },
@@ -159,10 +159,13 @@ export default function App() {
             <div>
               <div style={{ fontSize:13, fontWeight:800, color:T.gold, fontFamily:"monospace", letterSpacing:"0.1em", textTransform:"uppercase", lineHeight:1.2 }}>OATS APPS</div>
               <div style={{ fontSize:8, color:T.textDim, fontFamily:"monospace", letterSpacing:"0.1em", textTransform:"uppercase" }}>ai oatmeal coding division</div>
-              <div style={{ fontSize:8, color:T.gold, fontFamily:"monospace", opacity:0.5, marginTop:1 }}>v1.8 · 2026.06.16</div>
+              <div style={{ fontSize:8, color:T.gold, fontFamily:"monospace", opacity:0.5, marginTop:1 }}>v1.9 · 2026.06.16</div>
             </div>
           </div>
-          <a href="https://oats-mgmt.vercel.app" style={{ fontSize:10, color:T.gold, fontFamily:"monospace", textDecoration:"none", border:`1px solid ${T.gold}40`, borderRadius:6, padding:"5px 10px", background:T.gold+"11" }}>mgmt →</a>
+          <div style={{ display:"flex", gap:6 }}>
+            <a href="https://fookn-oats.enterprises" style={{ fontSize:10, color:T.textMid, fontFamily:"monospace", textDecoration:"none", border:`1px solid ${T.border2}`, borderRadius:6, padding:"5px 10px", background:T.card }}>FOE →</a>
+            <a href="https://oats-mgmt.vercel.app" style={{ fontSize:10, color:T.gold, fontFamily:"monospace", textDecoration:"none", border:`1px solid ${T.gold}40`, borderRadius:6, padding:"5px 10px", background:T.gold+"11" }}>mgmt →</a>
+          </div>
         </div>
 
         <div style={{ flex:1, padding:"20px 16px 80px" }}>
