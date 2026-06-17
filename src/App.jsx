@@ -38,7 +38,7 @@ const APPS_DEFAULT = [
     stack:["JS","Excel","Netlify"],
     description:"Touring lighting production toolkit. Excel-based light write & show file management.",
     url:"https://lx-powerbook.netlify.app", ghRepo:"this-is-oats-mgmt/LX_POWERBOOK", color:T.amber },
-  { id:"oats-apps-hub", name:"OATS Apps Hub", emoji:"⬡", version:"v1.4", status:"live", progress:75,
+  { id:"oats-apps-hub", name:"OATS Apps Hub", emoji:"⬡", version:"v1.5", status:"live", progress:75,
     stack:["React","Vite","Vercel"],
     description:"Standalone public directory of all OATS Apps Series. This page.",
     url:"https://oats-apps-hub.vercel.app", ghRepo:"this-is-OATS/oats-apps-hub", color:T.gold },
@@ -64,7 +64,8 @@ const APPS_DEFAULT = [
 ];
 
 // Public GitHub repos we can fetch commit data from without a token
-const PUBLIC_REPOS = new Set(["this-is-OATS/O.A.T.S.MGMT-APP","this-is-OATS/gigwars","this-is-OATS/oats-apps-hub"]);
+// O.A.T.S.MGMT-APP is private, gigwars is empty — only oats-apps-hub works
+const PUBLIC_REPOS = new Set(["this-is-OATS/oats-apps-hub"]);
 
 const STATUS_META = {
   "live":    { label:"LIVE",    color:T.green  },
