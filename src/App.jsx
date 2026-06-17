@@ -159,7 +159,7 @@ export default function App() {
             <div>
               <div style={{ fontSize:13, fontWeight:800, color:T.gold, fontFamily:"monospace", letterSpacing:"0.1em", textTransform:"uppercase", lineHeight:1.2 }}>OATS APPS</div>
               <div style={{ fontSize:8, color:T.textDim, fontFamily:"monospace", letterSpacing:"0.1em", textTransform:"uppercase" }}>ai oatmeal coding division</div>
-              <div style={{ fontSize:8, color:T.gold, fontFamily:"monospace", opacity:0.5, marginTop:1 }}>v1.5 · 2026.06.15</div>
+              <div style={{ fontSize:8, color:T.gold, fontFamily:"monospace", opacity:0.5, marginTop:1 }}>v1.6 · 2026.06.16</div>
             </div>
           </div>
           <a href="https://oats-mgmt.vercel.app" style={{ fontSize:10, color:T.gold, fontFamily:"monospace", textDecoration:"none", border:`1px solid ${T.gold}40`, borderRadius:6, padding:"5px 10px", background:T.gold+"11" }}>mgmt →</a>
@@ -218,6 +218,19 @@ export default function App() {
                     </div>
                     <div style={{ fontSize:8, fontFamily:"monospace", color:meta.color, background:meta.color+"18", border:`1px solid ${meta.color}40`, borderRadius:20, padding:"3px 9px", letterSpacing:"0.08em", flexShrink:0, marginLeft:8 }}>{meta.label}</div>
                   </div>
+
+                  {/* Preview thumbnail */}
+                  {app.url && (
+                    <div style={{ marginBottom:10, borderRadius:8, overflow:"hidden", border:`1px solid ${app.color}25`, background:T.surface, aspectRatio:"16/9", position:"relative" }}>
+                      <img
+                        src={`https://api.microlink.io/?url=${encodeURIComponent(app.url)}&screenshot=true&meta=false&embed=screenshot.url`}
+                        alt={app.name}
+                        style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}
+                        loading="lazy"
+                        onError={e => { e.target.parentNode.style.display="none"; }}
+                      />
+                    </div>
+                  )}
 
                   {/* Description */}
                   <div style={{ fontSize:12, color:T.textMid, lineHeight:1.55, marginBottom:10 }}>{app.description}</div>
