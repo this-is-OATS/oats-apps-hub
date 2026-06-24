@@ -49,7 +49,15 @@ url:null, ghRepo:null, color:T.purple },
 { id:"shotsort", name:"ShotSort", emoji:"🔍", version:"v0.6", status:"in-dev", progress:60,
 stack:["Flask","Python","Claude Vision"],
 description:"Screenshot text extractor. Sorting ~2,600 iCloud screenshots into HQ zones.",
-url:null, ghRepo:"this-is-oats-mgmt/shotsort", color:T.blue },
+url:null, ghRepo:"this-is-oats-mgmt/shotsort", color:T.blue, category:"internal" },
+{ id:"voice-memo-pipeline", name:"Voice Memo Pipeline", emoji:"🎙️", version:"v0.5", status:"in-dev", progress:65,
+stack:["Notion API","Apple Voice Memos","Google Drive"],
+description:"Captures voice memos, converges Apple + Google transcripts, logs into Notion automatically.",
+url:null, ghRepo:null, color:T.red, category:"internal" },
+{ id:"media-transcriber", name:"Media Transcriber", emoji:"🎞️", version:"v0.1", status:"live", progress:60,
+stack:["NAS","Audio/Video","Transcription","Local"],
+description:"Local machine app. Scans video/audio on the NAS drive and unsorted archives for convergence-checking against voice memo logs. Was working, recently broke — needs a fix.",
+url:null, ghRepo:null, color:T.blue, category:"internal" },
 { id:"will-oats-tree", name:"Will Oats Tree", emoji:"🌳", version:"v3.0", status:"live", progress:70,
 stack:["Three.js","WebGL","Vercel"],
 description:"3D rainbow willow tree. 12-zone life encyclopedia · energy source code · FOE.",
@@ -161,81 +169,7 @@ app.emoji
 );
 }
 
-export default function App() {
-const [apps, updateApp] = useApps();
-const [editing, setEditing] = useState(null);
-const [commits, setCommits] = useState({});
-const [loading, setLoading] = useState(true);
-
-const statusMeta = (s) => STATUS_META[s] || { label: s.toUpperCase(), color: T.textDim };
-const counts = Object.fromEntries(
-Object.keys(STATUS_META).map(s => [s, apps.filter(a => a.status === s).length])
-);
-
-// Fetch commits for all public repos on mount
-useEffect(() => {
-const publicApps = apps.filter(a => a.ghRepo && PUBLIC_REPOS.has(a.ghRepo));
-const uniqueRepos = [...new Set(publicApps.map(a => a.ghRepo))];
-Promise.all(
-uniqueRepos.map(repo => fetchCommit(repo).then(data => [repo, data]))
-).then(results => {
-setCommits(Object.fromEntries(results));
-setLoading(false);
-});
-}, []);
-
-return (
-<div style={{ minHeight:"100vh", background:T.bg, color:T.text, fontFamily:"'Inter',-apple-system,system-ui,sans-serif", display:"flex", justifyContent:"center" }}>
-<div style={{ width:"100%", maxWidth:860, display:"flex", flexDirection:"column", minHeight:"100vh" }}>
-
-{/* ── STATUS BAR SPACER ── */}
-<div style={{ height:14, background:T.surface }} />
-
-{/* ── HEADER ── */}
-<div style={{ background:T.surface, borderBottom:`1px solid ${T.border}`, padding:"12px 16px", display:"flex", alignItems:"center", justifyContent:"space-between", position:"sticky", top:0, zIndex:10 }}>
-<div style={{ display:"flex", alignItems:"center", gap:10 }}>
-<div style={{ fontSize:22 }}>🌾</div>
-<div>
-<div style={{ fontSize:13, fontWeight:800, color:T.gold, fontFamily:"monospace", letterSpacing:"0.1em", textTransform:"uppercase", lineHeight:1.2 }}>OATS APPS</div>
-<div style={{ fontSize:8, color:T.textDim, fontFamily:"monospace", letterSpacing:"0.1em", textTransform:"uppercase" }}>ai oatmeal coding division</div>
-<div style={{ fontSize:8, color:T.gold, fontFamily:"monospace", opacity:0.5, marginTop:1 }}>v2.0 · 2026.06.16</div>
-</div>
-</div>
-<div style={{ display:"flex", gap:6 }}>
-<a href="https://fookn-oats.enterprises" style={{ fontSize:10, color:T.textMid, fontFamily:"monospace", textDecoration:"none", border:`1px solid ${T.border2}`, borderRadius:6, padding:"5px 10px", background:T.card }}>FOE →</a>
-</div>
-</div>
-
-<div style={{ flex:1, padding:"20px 16px 80px" }}>
-
-{/* ── HERO ── */}
-<div style={{ marginBottom:20 }}>
-<div style={{ fontSize:24, fontWeight:800, color:T.text, letterSpacing:"-0.02em", lineHeight:1.15, marginBottom:8 }}>
-The Apps Series.
-</div>
-<div style={{ fontSize:13, color:T.textDim, lineHeight:1.6 }}>
-Everything inside the AI Oatmeal Coding Division.
-</div>
-</div>
-
-{/* ── STAT CHIPS ── */}
-<div style={{ display:"flex", gap:6, marginBottom:24, flexWrap:"wrap" }}>
-{Object.entries(STATUS_META).map(([s, m]) => counts[s] > 0 && (
-<div key={s} style={{ background:T.card, border:`1px solid ${m.color}30`, borderRadius:20, padding:"5px 12px", display:"flex", alignItems:"center", gap:6 }}>
-<div style={{ width:6, height:6, borderRadius:"50%", background:m.color }} />
-<span style={{ fontSize:9, fontFamily:"monospace", color:m.color, letterSpacing:"0.08em" }}>{m.label}</span>
-<span style={{ fontSize:14, fontWeight:800, color:T.text }}>{counts[s]}</span>
-</div>
-))}
-<div style={{ background:T.card, border:`1px solid ${T.border}`, borderRadius:20, padding:"5px 12px", display:"flex", alignItems:"center", gap:6 }}>
-<span style={{ fontSize:9, fontFamily:"monospace", color:T.textDim, letterSpacing:"0.08em" }}>TOTAL</span>
-<span style={{ fontSize:14, fontWeight:800, color:T.text }}>{apps.length}</span>
-</div>
-</div>
-
-{/* ── APP LIST ── */}
-<div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(360px, 1fr))", gap:10 }}>
-{apps.map(app => {
+function AppCard({ app, statusMeta, editing, setEditing, commits, loading, updateApp }) {
 const meta = statusMeta(app.status);
 const isEditing = editing === app.id;
 const commit = app.ghRepo ? commits[app.ghRepo] : null;
@@ -343,8 +277,104 @@ style={{ width:"100%", cursor:"pointer", height:20 }} />
 )}
 </div>
 );
-})}
+}
+
+export default function App() {
+const [apps, updateApp] = useApps();
+const [editing, setEditing] = useState(null);
+const [commits, setCommits] = useState({});
+const [loading, setLoading] = useState(true);
+
+const statusMeta = (s) => STATUS_META[s] || { label: s.toUpperCase(), color: T.textDim };
+const counts = Object.fromEntries(
+Object.keys(STATUS_META).map(s => [s, apps.filter(a => a.status === s).length])
+);
+const publicApps = apps.filter(a => a.category !== "internal");
+const internalApps = apps.filter(a => a.category === "internal");
+
+// Fetch commits for all public repos on mount
+useEffect(() => {
+const publicApps = apps.filter(a => a.ghRepo && PUBLIC_REPOS.has(a.ghRepo));
+const uniqueRepos = [...new Set(publicApps.map(a => a.ghRepo))];
+Promise.all(
+uniqueRepos.map(repo => fetchCommit(repo).then(data => [repo, data]))
+).then(results => {
+setCommits(Object.fromEntries(results));
+setLoading(false);
+});
+}, []);
+
+return (
+<div style={{ minHeight:"100vh", background:T.bg, color:T.text, fontFamily:"'Inter',-apple-system,system-ui,sans-serif", display:"flex", justifyContent:"center" }}>
+<div style={{ width:"100%", maxWidth:860, display:"flex", flexDirection:"column", minHeight:"100vh" }}>
+
+{/* ── STATUS BAR SPACER ── */}
+<div style={{ height:14, background:T.surface }} />
+
+{/* ── HEADER ── */}
+<div style={{ background:T.surface, borderBottom:`1px solid ${T.border}`, padding:"12px 16px", display:"flex", alignItems:"center", justifyContent:"space-between", position:"sticky", top:0, zIndex:10 }}>
+<div style={{ display:"flex", alignItems:"center", gap:10 }}>
+<div style={{ fontSize:22 }}>🌾</div>
+<div>
+<div style={{ fontSize:13, fontWeight:800, color:T.gold, fontFamily:"monospace", letterSpacing:"0.1em", textTransform:"uppercase", lineHeight:1.2 }}>OATS APPS</div>
+<div style={{ fontSize:8, color:T.textDim, fontFamily:"monospace", letterSpacing:"0.1em", textTransform:"uppercase" }}>ai oatmeal coding division</div>
+<div style={{ fontSize:8, color:T.gold, fontFamily:"monospace", opacity:0.5, marginTop:1 }}>v2.0 · 2026.06.16</div>
 </div>
+</div>
+<div style={{ display:"flex", gap:6 }}>
+<a href="https://fookn-oats.enterprises" style={{ fontSize:10, color:T.textMid, fontFamily:"monospace", textDecoration:"none", border:`1px solid ${T.border2}`, borderRadius:6, padding:"5px 10px", background:T.card }}>FOE →</a>
+</div>
+</div>
+
+<div style={{ flex:1, padding:"20px 16px 80px" }}>
+
+{/* ── HERO ── */}
+<div style={{ marginBottom:20 }}>
+<div style={{ fontSize:24, fontWeight:800, color:T.text, letterSpacing:"-0.02em", lineHeight:1.15, marginBottom:8 }}>
+The Apps Series.
+</div>
+<div style={{ fontSize:13, color:T.textDim, lineHeight:1.6 }}>
+Everything inside the AI Oatmeal Coding Division.
+</div>
+</div>
+
+{/* ── STAT CHIPS ── */}
+<div style={{ display:"flex", gap:6, marginBottom:24, flexWrap:"wrap" }}>
+{Object.entries(STATUS_META).map(([s, m]) => counts[s] > 0 && (
+<div key={s} style={{ background:T.card, border:`1px solid ${m.color}30`, borderRadius:20, padding:"5px 12px", display:"flex", alignItems:"center", gap:6 }}>
+<div style={{ width:6, height:6, borderRadius:"50%", background:m.color }} />
+<span style={{ fontSize:9, fontFamily:"monospace", color:m.color, letterSpacing:"0.08em" }}>{m.label}</span>
+<span style={{ fontSize:14, fontWeight:800, color:T.text }}>{counts[s]}</span>
+</div>
+))}
+<div style={{ background:T.card, border:`1px solid ${T.border}`, borderRadius:20, padding:"5px 12px", display:"flex", alignItems:"center", gap:6 }}>
+<span style={{ fontSize:9, fontFamily:"monospace", color:T.textDim, letterSpacing:"0.08em" }}>TOTAL</span>
+<span style={{ fontSize:14, fontWeight:800, color:T.text }}>{apps.length}</span>
+</div>
+</div>
+
+{/* ── APP LIST (public) ── */}
+<div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(360px, 1fr))", gap:10 }}>
+{publicApps.map(app => (
+<AppCard key={app.id} app={app} statusMeta={statusMeta} editing={editing} setEditing={setEditing} commits={commits} loading={loading} updateApp={updateApp} />
+))}
+</div>
+
+{/* ── INTERNAL TOOLS ── */}
+{internalApps.length > 0 && (
+<>
+<div style={{ marginTop:36, marginBottom:14, display:"flex", alignItems:"center", gap:8 }}>
+<span style={{ fontSize:10, fontFamily:"monospace", color:T.textDim, letterSpacing:"0.12em", textTransform:"uppercase" }}>⌬ Internal Tools</span>
+<span style={{ flex:1, height:1, background:T.border }} />
+<span style={{ fontSize:8, fontFamily:"monospace", color:T.textDim, opacity:0.6 }}>not public-facing</span>
+</div>
+<div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(360px, 1fr))", gap:10 }}>
+{internalApps.map(app => (
+<AppCard key={app.id} app={app} statusMeta={statusMeta} editing={editing} setEditing={setEditing} commits={commits} loading={loading} updateApp={updateApp} />
+))}
+</div>
+</>
+)}
 
 {/* ── FOOTER ── */}
 <div style={{ marginTop:40, paddingTop:20, borderTop:`1px solid ${T.border}` }}>
