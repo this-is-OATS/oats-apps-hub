@@ -30,7 +30,7 @@ url:"https://skynet-waterglass.vercel.app/indexes/looking_glass_mindmap.html", g
 stack:["HTML","JS","Netlify"],
 description:"2026 Fire Horse Decoder. Esoteric calendar intelligence, alchemical timeline.",
 url:"https://esotericagent.netlify.app", ghRepo:"this-is-oats-mgmt/skynet_waterglass", color:T.teal },
-{ id:"oats-notes", name:"OATS Notes", emoji:"📝", version:"v0.3", status:"live", progress:35,
+{ id:"oats-notes", name:"OATS Notes: by Nathan", emoji:"📝", version:"v0.3", status:"live", progress:35,
 stack:["React","Next.js","Vercel"],
 description:"Dump the decisions, pick up the wins. Quick-capture notes and wins app.",
 url:"https://oats-app.vercel.app", ghRepo:null, color:T.textMid },
