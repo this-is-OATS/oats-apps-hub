@@ -186,7 +186,7 @@ setLoading(false);
 
 return (
 <div style={{ minHeight:"100vh", background:T.bg, color:T.text, fontFamily:"'Inter',-apple-system,system-ui,sans-serif", display:"flex", justifyContent:"center" }}>
-<div style={{ width:"100%", maxWidth:390, display:"flex", flexDirection:"column", minHeight:"100vh" }}>
+<div style={{ width:"100%", maxWidth:860, display:"flex", flexDirection:"column", minHeight:"100vh" }}>
 
 {/* ── STATUS BAR SPACER ── */}
 <div style={{ height:14, background:T.surface }} />
@@ -234,7 +234,7 @@ Everything inside the AI Oatmeal Coding Division.
 </div>
 
 {/* ── APP LIST ── */}
-<div style={{ display:"flex", flexDirection:"column", gap:10 }}>
+<div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(360px, 1fr))", gap:10 }}>
 {apps.map(app => {
 const meta = statusMeta(app.status);
 const isEditing = editing === app.id;
