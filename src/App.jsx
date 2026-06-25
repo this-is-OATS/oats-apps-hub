@@ -60,7 +60,7 @@ const APPS_DEFAULT = [
     url:null, ghRepo:null, color:T.blue, category:"internal" },
   { id:"will-oats-tree", name:"Will Oats Tree", emoji:"🌳", version:"v3.0", status:"live", progress:70,
     stack:["Three.js","WebGL","Vercel"],
-    description:"3D rainbow willow tree. 12-zone life encyclopedia · energy source code · FOE.",
+    description:"An interactive 3D spatial node mapping a 12-zone lifetime encyclopedia and multi-year data archive. Functions as the generative WebGL visual framework and core energy source code for FOE",
     url:"https://will-oats-tree.vercel.app", ghRepo:"this-is-OATS/will-oats-tree", color:T.green },
   { id:"encycle", name:"Encycle-Oats-Paedia", emoji:"📼", version:"v0.0", status:"planned", progress:8,
     stack:["Audio","AI","Archive"],
