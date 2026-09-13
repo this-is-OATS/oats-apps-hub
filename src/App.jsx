@@ -38,7 +38,11 @@ url:"https://oats-app.vercel.app", ghRepo:null, color:T.textMid },
 stack:["JS","Excel","Netlify"],
 description:"Touring lighting production toolkit. Excel-based light write & show file management.",
 url:"https://lx-powerbook.netlify.app", ghRepo:"this-is-oats-mgmt/LX_POWERBOOK", color:T.amber },
-{ id:"oats-apps-hub", name:"OATS Apps Hub", emoji:"⬡", version:"v2.0", status:"live", progress:75,
+{ id:"truck-map", name:"Truck Map", emoji:"🚛", version:"v8.0", status:"live", progress:80,
+stack:["JS","Canvas","Vercel"],
+description:"Super-Tech LX truck pack planner. Truss & gear layouts by truck and level, to the inch.",
+url:"https://truck-map-app.vercel.app", ghRepo:"this-is-OATS/truck-map-app", color:T.amber },
+{ id:"oats-apps-hub", name:"OATS Apps Hub", emoji:"⬡", version:"v2.1", status:"live", progress:75,
 stack:["React","Vite","Vercel"],
 description:"Standalone public directory of all OATS Apps Series. This page.",
 url:"https://oats-apps-hub.vercel.app", ghRepo:"this-is-OATS/oats-apps-hub", color:T.gold },
@@ -299,7 +303,7 @@ return (
 <div>
 <div style={{ fontSize:13, fontWeight:800, color:T.gold, fontFamily:"monospace", letterSpacing:"0.1em", textTransform:"uppercase", lineHeight:1.2 }}>OATS APPS</div>
 <div style={{ fontSize:8, color:T.textDim, fontFamily:"monospace", letterSpacing:"0.1em", textTransform:"uppercase" }}>Oatmeal Intelligence Division</div>
-<div style={{ fontSize:8, color:T.gold, fontFamily:"monospace", opacity:0.5, marginTop:1 }}>v2.0 · 2026.06.16</div>
+<div style={{ fontSize:8, color:T.gold, fontFamily:"monospace", opacity:0.5, marginTop:1 }}>v2.1 · 2026.09.13</div>
 </div>
 </div>
 <div style={{ display:"flex", gap:6 }}>
