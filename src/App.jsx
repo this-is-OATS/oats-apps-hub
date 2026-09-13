@@ -42,7 +42,7 @@ url:"https://lx-powerbook.netlify.app", ghRepo:"this-is-oats-mgmt/LX_POWERBOOK",
 stack:["JS","Canvas","Vercel"],
 description:"Super-Tech LX truck pack planner. Truss & gear layouts by truck and level, to the inch.",
 url:"https://truck-map-app.vercel.app", ghRepo:"this-is-OATS/truck-map-app", color:T.amber },
-{ id:"oats-apps-hub", name:"OATS Apps Hub", emoji:"⬡", version:"v2.1", status:"live", progress:75,
+{ id:"oats-apps-hub", name:"OATS Apps Hub", emoji:"⬡", version:"v2.2", status:"live", progress:75,
 stack:["React","Vite","Vercel"],
 description:"Standalone public directory of all OATS Apps Series. This page.",
 url:"https://oats-apps-hub.vercel.app", ghRepo:"this-is-OATS/oats-apps-hub", color:T.gold },
@@ -62,7 +62,7 @@ url:null, ghRepo:null, color:T.red, category:"internal" },
 stack:["NAS","Audio/Video","Transcription","Local"],
 description:"Local media monitoring utility. Scans local storage directories and media files to cross-check transcription logs.",
 url:null, ghRepo:"this-is-OATS/media_transcriber", color:T.blue, category:"internal" },
-{ id:"will-oats-tree", name:"Will Oats Tree", emoji:"🌳", version:"v3.0", status:"live", progress:70,
+{ id:"will-oats-tree", name:"Will Oats Tree", emoji:"🌳", version:"v3.2", status:"live", progress:70,
 stack:["Three.js","WebGL","Vercel"],
 description:"An interactive 3D spatial node mapping a 12-zone lifetime encyclopedia and multi-year data archive. Functions as the generative WebGL visual framework and core energy source code for FOE",
 url:"https://will-oats-tree.vercel.app", ghRepo:"this-is-OATS/will-oats-tree", color:T.green },
@@ -303,7 +303,7 @@ return (
 <div>
 <div style={{ fontSize:13, fontWeight:800, color:T.gold, fontFamily:"monospace", letterSpacing:"0.1em", textTransform:"uppercase", lineHeight:1.2 }}>OATS APPS</div>
 <div style={{ fontSize:8, color:T.textDim, fontFamily:"monospace", letterSpacing:"0.1em", textTransform:"uppercase" }}>Oatmeal Intelligence Division</div>
-<div style={{ fontSize:8, color:T.gold, fontFamily:"monospace", opacity:0.5, marginTop:1 }}>v2.1 · 2026.09.13</div>
+<div style={{ fontSize:8, color:T.gold, fontFamily:"monospace", opacity:0.5, marginTop:1 }}>v2.2 · 2026.09.13</div>
 </div>
 </div>
 <div style={{ display:"flex", gap:6 }}>
