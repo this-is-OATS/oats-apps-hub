@@ -38,11 +38,19 @@ url:"https://oats-app.vercel.app", ghRepo:null, color:T.textMid },
 stack:["JS","Excel","Netlify"],
 description:"Touring lighting production toolkit. Excel-based light write & show file management.",
 url:"https://lx-powerbook.netlify.app", ghRepo:"this-is-oats-mgmt/LX_POWERBOOK", color:T.amber },
+{ id:"supertech-lx-apps", name:"Super-Tech LX Apps", emoji:"⚡", version:"v0.2.6", status:"live", progress:45,
+stack:["React","Vite","PWA","Vercel"],
+description:"Phone-side landing zone for the LX touring production suite. Fixture library & rig, DMX/sACN, cable routing, distro.",
+url:"https://supertech-lx-apps.vercel.app", ghRepo:"this-is-OATS/supertech-lx-apps", color:T.amber },
+{ id:"oats-hours", name:"OATS HOURS", emoji:"⏱", version:"v0.8.1", status:"live", progress:70,
+stack:["React","MapLibre","OwnTracks","Vercel"],
+description:"Crew hours & location tracking. Evidence, not a timesheet \u2014 entries proposed from location history.",
+url:"https://oats-tracker.vercel.app", ghRepo:"this-is-OATS/crew-call-mapper", color:T.blue },
 { id:"truck-map", name:"Truck Map", emoji:"🚛", version:"v8.0", status:"live", progress:80,
 stack:["JS","Canvas","Vercel"],
 description:"Super-Tech LX truck pack planner. Truss & gear layouts by truck and level, to the inch.",
 url:"https://truck-map-app.vercel.app", ghRepo:"this-is-OATS/truck-map-app", color:T.amber },
-{ id:"oats-apps-hub", name:"OATS Apps Hub", emoji:"⬡", version:"v2.2", status:"live", progress:75,
+{ id:"oats-apps-hub", name:"OATS Apps Hub", emoji:"⬡", version:"v2.3", status:"live", progress:75,
 stack:["React","Vite","Vercel"],
 description:"Standalone public directory of all OATS Apps Series. This page.",
 url:"https://oats-apps-hub.vercel.app", ghRepo:"this-is-OATS/oats-apps-hub", color:T.gold },
@@ -303,7 +311,7 @@ return (
 <div>
 <div style={{ fontSize:13, fontWeight:800, color:T.gold, fontFamily:"monospace", letterSpacing:"0.1em", textTransform:"uppercase", lineHeight:1.2 }}>OATS APPS</div>
 <div style={{ fontSize:8, color:T.textDim, fontFamily:"monospace", letterSpacing:"0.1em", textTransform:"uppercase" }}>Oatmeal Intelligence Division</div>
-<div style={{ fontSize:8, color:T.gold, fontFamily:"monospace", opacity:0.5, marginTop:1 }}>v2.2 · 2026.09.13</div>
+<div style={{ fontSize:8, color:T.gold, fontFamily:"monospace", opacity:0.5, marginTop:1 }}>v2.3 · 2026.09.17</div>
 </div>
 </div>
 <div style={{ display:"flex", gap:6 }}>
