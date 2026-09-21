@@ -34,14 +34,18 @@ url:"https://esotericagent.netlify.app", ghRepo:"this-is-oats-mgmt/skynet_waterg
 stack:["React","Next.js","Vercel"],
 description:"Dump the decisions, pick up the wins. Quick-capture notes and wins app.",
 url:"https://oats-app.vercel.app", ghRepo:null, color:T.textMid },
-{ id:"lx-supertech", name:"LX Powerbook", emoji:"🔦", version:"v0.4", status:"live", progress:40,
-stack:["JS","Excel","Netlify"],
-description:"Touring lighting production toolkit. Excel-based light write & show file management.",
-url:"https://lx-powerbook.netlify.app", ghRepo:"this-is-oats-mgmt/LX_POWERBOOK", color:T.amber },
+{ id:"lx-supertech", name:"LX Powerbook", emoji:"🔦", version:"v1.4.1", status:"live", progress:70,
+stack:["React","Firebase","XLSX","Vercel"],
+description:"Open lighting paperwork. Excel-based light write & show file management for touring production.",
+url:"https://lx-powerbook.vercel.app", ghRepo:"this-is-OATS/lx-powerbook", color:T.amber },
 { id:"supertech-lx-apps", name:"Super-Tech LX Apps", emoji:"⚡", version:"v0.2.6", status:"live", progress:45,
 stack:["React","Vite","PWA","Vercel"],
 description:"Phone-side landing zone for the LX touring production suite. Fixture library & rig, DMX/sACN, cable routing, distro.",
 url:"https://supertech-lx-apps.vercel.app", ghRepo:"this-is-OATS/supertech-lx-apps", color:T.amber },
+{ id:"supertech-avail", name:"Super-Tech Availability", emoji:"📅", version:"v0.2.2", status:"live", progress:40,
+stack:["React","Google Calendar","Vercel"],
+description:"Public availability & hold requests for SUPERTECH SERVICES crew chief and tech days. Reads Calendar, writes pending holds.",
+url:"https://supertech-avail.vercel.app", ghRepo:"this-is-OATS/supertech-avail", color:T.amber },
 { id:"oats-hours", name:"OATS HOURS", emoji:"⏱", version:"v0.8.1", status:"live", progress:70,
 stack:["React","MapLibre","OwnTracks","Vercel"],
 description:"Crew hours & location tracking. Evidence, not a timesheet \u2014 entries proposed from location history.",
@@ -50,7 +54,7 @@ url:"https://oats-tracker.vercel.app", ghRepo:"this-is-OATS/crew-call-mapper", c
 stack:["JS","Canvas","Vercel"],
 description:"Super-Tech LX truck pack planner. Truss & gear layouts by truck and level, to the inch.",
 url:"https://truck-map-app.vercel.app", ghRepo:"this-is-OATS/truck-map-app", color:T.amber },
-{ id:"oats-apps-hub", name:"OATS Apps Hub", emoji:"⬡", version:"v2.3", status:"live", progress:75,
+{ id:"oats-apps-hub", name:"OATS Apps Hub", emoji:"⬡", version:"v2.4", status:"live", progress:75,
 stack:["React","Vite","Vercel"],
 description:"Standalone public directory of all OATS Apps Series. This page.",
 url:"https://oats-apps-hub.vercel.app", ghRepo:"this-is-OATS/oats-apps-hub", color:T.gold },
@@ -311,7 +315,7 @@ return (
 <div>
 <div style={{ fontSize:13, fontWeight:800, color:T.gold, fontFamily:"monospace", letterSpacing:"0.1em", textTransform:"uppercase", lineHeight:1.2 }}>OATS APPS</div>
 <div style={{ fontSize:8, color:T.textDim, fontFamily:"monospace", letterSpacing:"0.1em", textTransform:"uppercase" }}>Oatmeal Intelligence Division</div>
-<div style={{ fontSize:8, color:T.gold, fontFamily:"monospace", opacity:0.5, marginTop:1 }}>v2.3 · 2026.09.17</div>
+<div style={{ fontSize:8, color:T.gold, fontFamily:"monospace", opacity:0.5, marginTop:1 }}>v2.4 · 2026.09.21</div>
 </div>
 </div>
 <div style={{ display:"flex", gap:6 }}>
