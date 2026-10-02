@@ -54,7 +54,11 @@ url:"https://oats-tracker.vercel.app", ghRepo:"this-is-OATS/crew-call-mapper", c
 stack:["JS","Canvas","Vercel"],
 description:"Super-Tech LX truck pack planner. Truss & gear layouts by truck and level, to the inch.",
 url:"https://truck-map-app.vercel.app", ghRepo:"this-is-OATS/truck-map-app", color:T.amber },
-{ id:"oats-apps-hub", name:"OATS Apps Hub", emoji:"⬡", version:"v2.4", status:"live", progress:75,
+{ id:"oats-waymark", name:"OATS WAYMARK", emoji:"📍", version:"v1.0.0", status:"live", progress:60,
+stack:["Google Timeline","Canvas","D3"],
+description:"Suite of Google Timeline tools: Hours Infographic, Timeline Reel, Travel Atlas. One export feeds all of them, read on-device.",
+url:"https://claude.ai/artifact/57sQ9R49ADJV83cXNrwqsA", ghRepo:null, color:T.purple, category:"internal" },
+{ id:"oats-apps-hub", name:"OATS Apps Hub", emoji:"⬡", version:"v2.5", status:"live", progress:75,
 stack:["React","Vite","Vercel"],
 description:"Standalone public directory of all OATS Apps Series. This page.",
 url:"https://oats-apps-hub.vercel.app", ghRepo:"this-is-OATS/oats-apps-hub", color:T.gold },
@@ -315,7 +319,7 @@ return (
 <div>
 <div style={{ fontSize:13, fontWeight:800, color:T.gold, fontFamily:"monospace", letterSpacing:"0.1em", textTransform:"uppercase", lineHeight:1.2 }}>OATS APPS</div>
 <div style={{ fontSize:8, color:T.textDim, fontFamily:"monospace", letterSpacing:"0.1em", textTransform:"uppercase" }}>Oatmeal Intelligence Division</div>
-<div style={{ fontSize:8, color:T.gold, fontFamily:"monospace", opacity:0.5, marginTop:1 }}>v2.4 · 2026.09.21</div>
+<div style={{ fontSize:8, color:T.gold, fontFamily:"monospace", opacity:0.5, marginTop:1 }}>v2.5 · 2026.10.01</div>
 </div>
 </div>
 <div style={{ display:"flex", gap:6 }}>
