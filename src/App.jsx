@@ -58,7 +58,15 @@ url:"https://truck-map-app.vercel.app", ghRepo:"this-is-OATS/truck-map-app", col
 stack:["Google Timeline","Canvas","D3"],
 description:"Suite of Google Timeline tools: Hours Infographic, Timeline Reel, Travel Atlas. One export feeds all of them, read on-device.",
 url:"https://claude.ai/artifact/57sQ9R49ADJV83cXNrwqsA", ghRepo:null, color:T.purple, category:"internal" },
-{ id:"oats-apps-hub", name:"OATS Apps Hub", emoji:"⬡", version:"v2.5", status:"live", progress:75,
+{ id:"oats-ndi-hub", name:"OATS NDI HUB", emoji:"🎛", version:"v0.1.0", status:"live", progress:55,
+stack:["Swift","NDI","WebSocket","macOS"],
+description:"NDI multiview + free PTZ control in any browser; an Insta360 Link 2 (any UVC webcam) as an NDI camera with PTZ and a protected mic; a display as NDI. Mac download, installs as a login item.",
+url:"https://oats-apps-hub.vercel.app/ndi-hub/", ghRepo:null, color:T.teal },
+{ id:"vj-vizzies", name:"VJ VIZZIES", emoji:"🌀", version:"v1.0", status:"live", progress:80,
+stack:["Swift","Metal","sACN","OSC","NDI"],
+description:"Headless clip + fractal player for shows: driven from grandMA3, full screen over HDMI to LED walls and projectors, NDI for previs. Mac app download.",
+url:"https://oats-apps-hub.vercel.app/vizzies/", ghRepo:null, color:T.purple },
+{ id:"oats-apps-hub", name:"OATS Apps Hub", emoji:"⬡", version:"v2.6", status:"live", progress:75,
 stack:["React","Vite","Vercel"],
 description:"Standalone public directory of all OATS Apps Series. This page.",
 url:"https://oats-apps-hub.vercel.app", ghRepo:"this-is-OATS/oats-apps-hub", color:T.gold },
@@ -319,7 +327,7 @@ return (
 <div>
 <div style={{ fontSize:13, fontWeight:800, color:T.gold, fontFamily:"monospace", letterSpacing:"0.1em", textTransform:"uppercase", lineHeight:1.2 }}>OATS APPS</div>
 <div style={{ fontSize:8, color:T.textDim, fontFamily:"monospace", letterSpacing:"0.1em", textTransform:"uppercase" }}>Oatmeal Intelligence Division</div>
-<div style={{ fontSize:8, color:T.gold, fontFamily:"monospace", opacity:0.5, marginTop:1 }}>v2.5 · 2026.10.01</div>
+<div style={{ fontSize:8, color:T.gold, fontFamily:"monospace", opacity:0.5, marginTop:1 }}>v2.6 · 2026.10.25</div>
 </div>
 </div>
 <div style={{ display:"flex", gap:6 }}>
