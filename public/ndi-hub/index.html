@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OATS NDI HUB · OATS APPS</title>
+<meta property="og:title" content="OATS NDI HUB"><meta property="og:description" content="NDI multiview and free PTZ control in any browser, a webcam as an NDI camera with PTZ and a protected mic, a display as NDI. For a Mac on your NDI network."><meta property="og:image" content="https://oats-apps-hub.vercel.app/og.png">
+<style>
+:root{--bg:#0A0A0A;--surface:#111;--card:#161616;--border:#1E1E1E;--gold:#C8A96E;--text:#E8E4DC;--mid:#9A9690;--dim:#555550;--teal:#7EB8A4}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 Inter,-apple-system,system-ui,sans-serif}
+main{max-width:760px;margin:0 auto;padding:28px 16px 80px}
+a.back{font:10px/1 monospace;color:var(--mid);text-decoration:none;letter-spacing:.1em;text-transform:uppercase}
+h1{font-size:28px;letter-spacing:-.02em;margin:18px 0 6px}
+.tag{color:var(--mid);margin:0 0 18px}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 26px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:10px;text-decoration:none;font:600 13px/1 monospace;letter-spacing:.04em}
+.dl{background:var(--gold);color:#000} .alt{background:var(--card);color:var(--gold);border:1px solid #C8A96E40}
+.ver{font:11px monospace;color:var(--dim);align-self:center}
+h2{font:700 10px/1 monospace;color:var(--dim);letter-spacing:.14em;text-transform:uppercase;margin:26px 0 10px}
+ul{margin:0;padding-left:18px;color:var(--mid)} li{margin:4px 0}
+pre{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;overflow:auto;font-size:12px;color:var(--text)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px 20px}
+footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--border);font:9px monospace;color:var(--dim);letter-spacing:.06em}
+</style></head><body><main>
+<a class="back" href="/">← OATS APPS</a>
+<h1>OATS NDI HUB</h1>
+<p class="tag">NDI multiview and free PTZ control in any browser, a webcam as an NDI camera with PTZ and a protected mic, a display as NDI. For a Mac on your NDI network.</p>
+<div class="row"><a class="btn dl" href="/downloads/OATS-NDI-HUB-latest.zip">⬇ Download for Mac</a><a class="btn alt" href="/downloads/OATS-NDI-HUB-READ-ME-FIRST.txt">READ ME FIRST</a><span class="ver">v0.1.0 · 2026-10-25</span></div>
+<div class="card"><h2 style="margin-top:0">What it does</h2><ul><li>OATS Hub: every NDI source on the network in a browser multiview (phone, iPad, laptop), click to select with tally, joystick / zoom / 8 presets / autofocus for any NDI PTZ camera. No license, no paid add-on. Wall-monitor grid at /multiview.</li><li>Camera sender: an Insta360 Link 2 (or any UVC webcam) as an NDI source WITH PTZ, no vendor app needed. Mic in the same feed, muted at start, with howl detection, a speech-only voice mode and a monitoring-loop detector.</li><li>Display sender: one of the Mac&#x27;s displays as a steady 30 fps NDI source.</li><li>Installs to ~/Applications/OATS NDI HUB with a login item; re-run the installer to update, settings and presets are kept.</li></ul>
+<h2>You need</h2><ul><li>Apple Silicon Mac, macOS 14 or later.</li><li>NDI Tools (free) from ndi.video/tools for the NDI runtime.</li><li>Rosetta 2 for the camera and display senders (one Terminal command, in the read-me).</li></ul>
+<h2>Install</h2><pre>unzip, then in Terminal:
+"/path/to/OATS NDI HUB/install.sh"
+
+then open  http://&lt;the Mac&gt;:7080/  on anything on the same Wi-Fi.
+iPad: Safari › Share › Add to Home Screen.</pre></div>
+<footer>FOOK'N OATS ENTERPRISES · OATMEAL INTELLIGENCE DIVISION</footer>
+</main></body></html>

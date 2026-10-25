@@ -1,0 +1,48 @@
+OATS NDI HUB: READ ME FIRST
+===========================
+
+Three small programs for a Mac on an NDI network, from Fook'n Oats Enterprises:
+
+  OATS Hub        a browser page (phone, iPad, laptop) that shows every NDI source on the network as a multiview and
+                  controls PTZ cameras: joystick, zoom, presets, autofocus, tally. Free PTZ for any NDI camera that
+                  advertises it. http://<the Mac>:7080/  and a wall-monitor grid at /multiview.
+  Camera sender   an Insta360 Link 2 (or any UVC webcam) as an NDI source WITH PTZ, no vendor software needed.
+                  Mic in the same feed (muted at start), with howl detection, a speech-only voice mode and a
+                  monitoring-loop detector that mutes the mic when your speakers feed it back.
+  Display sender  one of the Mac's displays as an NDI source (off by default).
+
+What you need
+-------------
+1. An Apple Silicon Mac, macOS 14 or later.
+2. The NDI runtime: install NDI Tools from https://ndi.video/tools/ (puts libndi.dylib in /usr/local/lib).
+3. Rosetta 2 for the camera and display senders (the hub itself does not need it):
+       softwareupdate --install-rosetta --agree-to-license
+
+Install
+-------
+1. Unzip "OATS NDI HUB.zip" somewhere (Downloads is fine).
+2. Open Terminal and run:    "/path/to/OATS NDI HUB/install.sh"
+   (drag the install.sh file into the Terminal window to get its path, then press Return)
+3. Click Allow when macOS asks for the camera, the microphone, local network, and (display sender) screen recording.
+   These prompts are attributed to Terminal, so start the first time from Terminal.
+
+That installs to ~/Applications/OATS NDI HUB, adds a login item so it all starts at login, and starts it now.
+Run install.sh again later to update: presets and settings are kept.
+
+Use
+---
+  Open http://<the Mac's IP>:7080/ on anything on the same network. On an iPad: Safari > Share > Add to Home Screen.
+  Keys on the hub page: arrows pan/tilt, +/- zoom, 1-8 presets (shift stores), A mic on/off, V voice mode, space stop.
+  Camera:  ~/Applications/OATS\ NDI\ HUB/oats-cam/cam.sh status | restart | audio on|off|toggle|voice on|off
+  Hub:     ~/Applications/OATS\ NDI\ HUB/oats-hub/hub.sh status
+  Settings: oats-cam/cam.env (CAM_NAME, CAM_DEVICE, CAM_SIZE, CAM_FPS, CAM_AUDIO_START=1, CAM_AUDIO_MODE=voice),
+            oats-hub/hub.env (HUB_PORT, HUB_AUDIO_CTL), oats-screen/screen.env. Details in each folder's README.md.
+
+Known limits
+------------
+  The Insta360 Link 2 has 1-degree pan/tilt steps (fine for repositioning, not slow cinematic pans) and resets zoom
+  when the stream restarts. Keep Insta360 Link Controller closed: its tracking fights remote PTZ.
+  NDI PTZ has no position readback, so the zoom slider shows what you last set.
+  Audio latency added by the sender is ~11 ms; what you hear in a receiver is mostly that receiver's own buffer.
+
+Uninstall:  "~/Applications/OATS NDI HUB/uninstall.sh"

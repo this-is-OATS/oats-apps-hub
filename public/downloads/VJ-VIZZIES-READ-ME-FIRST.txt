@@ -1,0 +1,72 @@
+VJ VIZZIES: READ ME FIRST
+=======================
+
+VJ VIZZIES (formerly OATS VIZ) is a clip + fractal player for shows: driven from grandMA3 (sACN / OSC), it shows its picture
+full screen on an extra display (HDMI to an LED processor or projector: the show feed) and can also send it
+as NDI (to Vision for previs).
+
+What you need on the Mac
+------------------------
+1. An Apple Silicon Mac with macOS 14 (Sonoma) or later. The player is native Apple Silicon code.
+2. Optional: Rosetta 2, needed only for NDI helper mode (the freeze-free 1080p NDI sender for previs).
+   To install it, open Terminal and run:
+       softwareupdate --install-rosetta --agree-to-license
+3. Optional: the NDI runtime, needed only for NDI previs. Install NDI Tools from https://ndi.video/tools/
+   (it puts libndi.dylib in /usr/local/lib). VJ VIZZIES does not include NDI.
+   Shows over HDMI need neither Rosetta nor NDI. A crew laptop that only shows the controls of another Mac
+   needs neither either.
+
+NDI previs modes (Settings > NDI previs; OSC /oats/ndi/mode)
+  - Auto (default): Helper when Rosetta 2 is installed, else Native soft.
+  - Helper: a small Intel helper sends 1080p NDI under Rosetta (the Apple Silicon NDI 6.3.2 library can
+    freeze for ~4 s at a time on very fine detail; the Intel one does not).
+  - Native soft: the Apple Silicon NDI library with a softened 960x540 NDI copy, which did not freeze in our
+    tests. Vision's "Low" bandwidth setting shows 640x360 anyway. The HDMI output stays full quality.
+  - Native: full 1080p from the Apple Silicon library (may freeze on fine detail; NDI only).
+  - Off: HDMI output only.
+  NDI problems never stop or slow the HDMI output.
+
+macOS 28 and later: Apple has said Rosetta 2 stays general-purpose only up to macOS 27. If a later macOS
+removes it, shows over HDMI keep working as before; NDI previs then uses Native soft (or Native).
+
+Install
+-------
+1. Unzip "VJ VIZZIES.zip" and drag "VJ VIZZIES.app" to Applications.
+2. The first time: right-click VJ VIZZIES.app > Open > Open. It is not signed by an Apple developer
+   account (ad-hoc signed only), so a double-click is refused the first time. If macOS still says it
+   is damaged, run in Terminal:   xattr -dr com.apple.quarantine "/Applications/VJ VIZZIES.app"
+3. When macOS asks whether VJ VIZZIES may find devices on your local network, click Allow (sACN, OSC
+   and NDI need it).
+
+First run
+---------
+A setup window asks for:
+  - Role: "Player on this Mac", or "Controls only" plus the IP of the player Mac (crew laptop).
+  - Lighting network: the interface (en0, en1, ...) on your lighting network. The controls are allowed
+    only from that network and from the Mac itself, and NDI is pinned to it.
+  - sACN universe (default 5), NDI source name (default "OATS VIZ Program", kept so existing receivers find it).
+  - Media folder (default ~/Movies/OATS VIZ, the old name kept), the output display (the HDMI show output) and the NDI previs mode.
+It also checks the ports (OSC UDP 7000, controls TCP 8090, preview TCP 8091) and, as optional items, Rosetta
+(NDI helper mode only) and the NDI runtime (NDI previs only).
+Change everything later in VJ VIZZIES > Settings... (Cmd-,).
+
+Then the controls window opens. The same controls work in a browser on any computer on the lighting
+network: http://<this Mac's IP>:8090. The menu-bar dot shows the player's health (green / amber / red);
+its menu starts, stops and restarts the player, opens the logs and turns "Open at login" on or off.
+
+Your data lives in ~/Library/Application Support/OATS VIZ/ (settings, bins, scenes, looks, logs) and
+the clips in the media folder.
+
+Show packs
+----------
+File > Export Show Pack... (or the "Show" button in the controls) writes a .oatspack file with your bins,
+scenes + thumbnails, looks / presets / scripts and the show settings (not this Mac's network, ports or
+folders). Media files go in only if you tick "Include the media files".
+File > Import Show Pack... merges by bank (the pack's banks replace the ones with the same numbers) or
+replaces everything, and copies the pack's media into your media folder.
+
+Media licensing: only put clips in a pack that you are allowed to share. The Mixkit stock test clips
+used during development are NOT included in this app or zip and must not go into shared packs.
+
+Licences: Contents/Resources/third_party_licenses (Ableton Link helper: GPL-2.0-or-later, with its
+source; NDI notice).
