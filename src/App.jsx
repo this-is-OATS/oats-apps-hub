@@ -16,7 +16,7 @@ description:"The primary digital portfolio and enterprise gateway. Showcasing al
 url:"https://fookn-oats.enterprises", ghRepo:"this-is-oats-mgmt/fookn-oats-main", color:T.gold },
 { id:"oats-mgmt", name:"OATS MGMT", emoji:"⬡", version:"v0.8.16", status:"live", progress:78,
 stack:["React","Vite","Firebase","Vercel"],
-description:"The primary workspace hub. Central tracking, metrics, and operations dashboard for FOOK'N OATS ENTERPRISES.",
+description:"The primary workspace hub. Central tracking, metrics, and operations dashboard for FOOK'n OATS ENTERPRISES.",
 url:"https://oats-mgmt.vercel.app", ghRepo:"this-is-OATS/O.A.T.S.MGMT-APP", color:T.gold },
 { id:"gigwars", name:"Gig Wars", emoji:"🎮", version:"v0.2", status:"live", progress:22,
 stack:["JS","Browser","TI-85 aesthetic"],
@@ -30,10 +30,6 @@ url:"https://skynet-waterglass.vercel.app/indexes/looking_glass_mindmap.html", g
 stack:["HTML","JS","Netlify"],
 description:"2026 Fire Horse timeline tracker. Applied cyclical analytics and pattern evaluation models.",
 url:"https://esotericagent.netlify.app", ghRepo:"this-is-oats-mgmt/skynet_waterglass", color:T.teal },
-{ id:"oats-notes", name:"OATS Notes: by Nathan", emoji:"📝", version:"v0.3", status:"live", progress:35,
-stack:["React","Next.js","Vercel"],
-description:"Dump the decisions, pick up the wins. Quick-capture notes and wins app.",
-url:"https://oats-app.vercel.app", ghRepo:null, color:T.textMid },
 { id:"lx-supertech", name:"LX Powerbook", emoji:"🔦", version:"v1.4.1", status:"live", progress:70,
 stack:["React","Firebase","XLSX","Vercel"],
 description:"Open lighting paperwork. Excel-based light write & show file management for touring production.",
@@ -66,7 +62,7 @@ url:"https://oats-apps-hub.vercel.app/ndi-hub/", ghRepo:null, color:T.teal },
 stack:["Swift","Metal","sACN","OSC","NDI"],
 description:"Headless clip + fractal player for shows: driven from grandMA3, full screen over HDMI to LED walls and projectors, NDI for previs. Mac app download.",
 url:"https://oats-apps-hub.vercel.app/vizzies/", ghRepo:null, color:T.purple },
-{ id:"oats-apps-hub", name:"OATS Apps Hub", emoji:"⬡", version:"v2.6", status:"live", progress:75,
+{ id:"oats-apps-hub", name:"OATS Apps Hub", emoji:"⬡", version:"v2.7", status:"live", progress:75,
 stack:["React","Vite","Vercel"],
 description:"Standalone public directory of all OATS Apps Series. This page.",
 url:"https://oats-apps-hub.vercel.app", ghRepo:"this-is-OATS/oats-apps-hub", color:T.gold },
@@ -97,6 +93,16 @@ url:null, ghRepo:null, color:T.amber },
 { id:"convergance", name:"Convergance Tool", emoji:"⟁", version:"v0.0", status:"planned", progress:5,
 stack:["TBD"], description:"Data intersection and alignment tool. Purpose and integration pipelines TBD.",
 url:null, ghRepo:"this-is-oats-mgmt/convergance_tool", color:T.purple },
+];
+
+
+// Landing-page sections by app type. Each app id maps to one section.
+const SECTIONS = [
+{ id:"show", label:"Show / Live", glyph:"◉", color:"#B07CC6", blurb:"Running the show: video, NDI, playback.", apps:["vj-vizzies","oats-ndi-hub"] },
+{ id:"touring", label:"Touring / LX", glyph:"⚡", color:"#E0A030", blurb:"Lighting paperwork, rigs, trucks, crew days.", apps:["lx-supertech","supertech-lx-apps","truck-map","supertech-avail","oats-hours"] },
+{ id:"studio", label:"Studio / Media", glyph:"◐", color:"#7EB8A4", blurb:"Archives, transcripts, timelines, visuals.", apps:["will-oats-tree","oats-waymark","media-transcriber","voice-memo-pipeline","shotsort","encycle"] },
+{ id:"ops", label:"Ops / Tools", glyph:"⬡", color:"#C8A96E", blurb:"Running FOOK'n OATS: dashboards, sites, directories.", apps:["oats-mgmt","fookn-oats-main","oats-apps-hub","convergance"] },
+{ id:"labs", label:"Labs / Play", glyph:"✦", color:"#5B9BD5", blurb:"Games, experiments, pattern engines.", apps:["gigwars","skynet-waterglass","esoteric-agent","princess-comms"] },
 ];
 
 const PUBLIC_REPOS = new Set(["this-is-OATS/oats-apps-hub", "this-is-OATS/media_transcriber"]);
@@ -192,7 +198,7 @@ app.emoji
 );
 }
 
-function AppCard({ app, statusMeta, editing, setEditing, commits, loading, updateApp }) {
+function AppCard({ app, accent, statusMeta, editing, setEditing, commits, loading, updateApp }) {
 const meta = statusMeta(app.status);
 const isEditing = editing === app.id;
 const commit = app.ghRepo ? commits[app.ghRepo] : null;
@@ -201,13 +207,14 @@ const hasLiveCommit = commit && PUBLIC_REPOS.has(app.ghRepo);
 return (
 <div key={app.id}
 onClick={() => setEditing(isEditing ? null : app.id)}
-style={{ background:T.card, border:`1px solid ${isEditing ? app.color+"60" : T.border}`, borderRadius:16, padding:"16px", cursor:"pointer", transition:"border-color 0.15s" }}>
+style={{ background:T.card, border:`1px solid ${isEditing ? accent+"90" : accent+"38"}`, borderLeft:`3px solid ${accent}`, borderRadius:16, padding:"16px", cursor:"pointer", transition:"border-color 0.15s" }}>
 
 <div style={{ display:"flex", alignItems:"flex-start", justifyContent:"space-between", marginBottom:10 }}>
 <div style={{ display:"flex", alignItems:"center", gap:10, flex:1, minWidth:0 }}>
 <AppIcon app={app} />
 <div style={{ minWidth:0 }}>
 <div style={{ fontSize:14, fontWeight:700, color:T.text, lineHeight:1.2 }}>{app.name}</div>
+{app.category === "internal" && <span style={{ display:"inline-block", marginTop:4, fontSize:8, fontFamily:"monospace", color:accent, border:`1px solid ${accent}50`, borderRadius:3, padding:"1px 5px", letterSpacing:"0.08em" }}>INTERNAL</span>}
 <div style={{ display:"flex", gap:4, marginTop:4, flexWrap:"wrap" }}>
 {app.stack.map(s => <span key={s} style={{ fontSize:8, fontFamily:"monospace", color:T.textDim, background:T.surface, border:`1px solid ${T.border}`, borderRadius:3, padding:"2px 6px" }}>{s}</span>)}
 </div>
@@ -301,8 +308,11 @@ const statusMeta = (s) => STATUS_META[s] || { label: s.toUpperCase(), color: T.t
 const counts = Object.fromEntries(
 Object.keys(STATUS_META).map(s => [s, apps.filter(a => a.status === s).length])
 );
-const publicApps = apps.filter(a => a.category !== "internal");
-const internalApps = apps.filter(a => a.category === "internal");
+const grouped = new Set(SECTIONS.flatMap(sx => sx.apps));
+const sections = [
+...SECTIONS.map(sx => ({ ...sx, items: sx.apps.map(id => apps.find(a => a.id === id)).filter(Boolean) })),
+{ id:"other", label:"Other", glyph:"·", color:T.textMid, blurb:"Not yet sorted.", items: apps.filter(a => !grouped.has(a.id)) },
+].filter(sx => sx.items.length > 0);
 
 useEffect(() => {
 const publicApps = apps.filter(a => a.ghRepo && PUBLIC_REPOS.has(a.ghRepo));
@@ -327,7 +337,7 @@ return (
 <div>
 <div style={{ fontSize:13, fontWeight:800, color:T.gold, fontFamily:"monospace", letterSpacing:"0.1em", textTransform:"uppercase", lineHeight:1.2 }}>OATS APPS</div>
 <div style={{ fontSize:8, color:T.textDim, fontFamily:"monospace", letterSpacing:"0.1em", textTransform:"uppercase" }}>Oatmeal Intelligence Division</div>
-<div style={{ fontSize:8, color:T.gold, fontFamily:"monospace", opacity:0.5, marginTop:1 }}>v2.6 · 2026.10.25</div>
+<div style={{ fontSize:8, color:T.gold, fontFamily:"monospace", opacity:0.5, marginTop:1 }}>v2.7 · 2026.10.25</div>
 </div>
 </div>
 <div style={{ display:"flex", gap:6 }}>
@@ -360,29 +370,33 @@ Everything inside the Oatmeal Intelligence Division.
 </div>
 </div>
 
-<div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(360px, 1fr))", gap:10 }}>
-{publicApps.map(app => (
-<AppCard key={app.id} app={app} statusMeta={statusMeta} editing={editing} setEditing={setEditing} commits={commits} loading={loading} updateApp={updateApp} />
+<div style={{ display:"flex", gap:6, marginBottom:28, flexWrap:"wrap" }}>
+{sections.map(sx => (
+<a key={sx.id} href={`#${sx.id}`} style={{ fontSize:9, fontFamily:"monospace", color:sx.color, textDecoration:"none", border:`1px solid ${sx.color}45`, background:sx.color+"12", borderRadius:6, padding:"6px 10px", letterSpacing:"0.08em", textTransform:"uppercase", minHeight:30, display:"flex", alignItems:"center" }}>{sx.glyph} {sx.label}</a>
 ))}
 </div>
 
-{internalApps.length > 0 && (
-<>
-<div style={{ marginTop:36, marginBottom:14, display:"flex", alignItems:"center", gap:8 }}>
-<span style={{ fontSize:10, fontFamily:"monospace", color:T.textDim, letterSpacing:"0.12em", textTransform:"uppercase" }}>⌬ Core Utilities</span>
-<span style={{ flex:1, height:1, background:T.border }} />
-<span style={{ fontSize:8, fontFamily:"monospace", color:T.textDim, opacity:0.6 }}>not public-facing</span>
+{sections.map((sx, i) => (
+<section key={sx.id} id={sx.id} style={{ marginTop: i === 0 ? 0 : 36, scrollMarginTop:80 }}>
+<div style={{ marginBottom:14 }}>
+<div style={{ display:"flex", alignItems:"center", gap:8 }}>
+<span style={{ width:8, height:8, background:sx.color, boxShadow:`0 0 8px ${sx.color}90`, flexShrink:0 }} />
+<span style={{ fontSize:11, fontFamily:"monospace", fontWeight:700, color:sx.color, letterSpacing:"0.14em", textTransform:"uppercase" }}>{sx.glyph} {sx.label}</span>
+<span style={{ flex:1, height:1, background:`linear-gradient(90deg, ${sx.color}70, transparent)` }} />
+<span style={{ fontSize:9, fontFamily:"monospace", color:sx.color, opacity:0.7 }}>{sx.items.length}</span>
 </div>
-<div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(360px, 1fr))", gap:10 }}>
-{internalApps.map(app => (
-<AppCard key={app.id} app={app} statusMeta={statusMeta} editing={editing} setEditing={setEditing} commits={commits} loading={loading} updateApp={updateApp} />
+<div style={{ fontSize:10, fontFamily:"monospace", color:T.textDim, marginTop:6, paddingLeft:16 }}>{sx.blurb}</div>
+</div>
+<div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(min(100%, 360px), 1fr))", gap:10 }}>
+{sx.items.map(app => (
+<AppCard key={app.id} app={app} accent={sx.color} statusMeta={statusMeta} editing={editing} setEditing={setEditing} commits={commits} loading={loading} updateApp={updateApp} />
 ))}
 </div>
-</>
-)}
+</section>
+))}
 
 <div style={{ marginTop:40, paddingTop:20, borderTop:`1px solid ${T.border}` }}>
-<div style={{ fontSize:9, color:T.textDim, fontFamily:"monospace", letterSpacing:"0.06em", marginBottom:6 }}>FOOK'N OATS ENTERPRISES</div>
+<div style={{ fontSize:9, color:T.textDim, fontFamily:"monospace", letterSpacing:"0.06em", marginBottom:6 }}>FOOK'n OATS ENTERPRISES</div>
 <div style={{ fontSize:9, color:T.textDim, fontFamily:"monospace", letterSpacing:"0.06em", opacity:0.6 }}>OATMEAL INTELLIGENCE DIVISION</div>
 </div>
 </div>
