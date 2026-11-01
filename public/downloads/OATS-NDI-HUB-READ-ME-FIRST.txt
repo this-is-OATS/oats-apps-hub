@@ -1,21 +1,24 @@
-OATS NDI HUB: READ ME FIRST
+OATS NDI HUB: READ ME FIRST                                                                  v0.2.0
 ===========================
 
 Three small programs for a Mac on an NDI network, from Fook'n Oats Enterprises:
 
   OATS Hub        a browser page (phone, iPad, laptop) that shows every NDI source on the network as a multiview and
                   controls PTZ cameras: joystick, zoom, presets, autofocus, tally. Free PTZ for any NDI camera that
-                  advertises it. http://<the Mac>:7080/  and a wall-monitor grid at /multiview.
-  Camera sender   an Insta360 Link 2 (or any UVC webcam) as an NDI source WITH PTZ, no vendor software needed.
-                  Mic in the same feed (muted at start), with howl detection, a speech-only voice mode and a
-                  monitoring-loop detector that mutes the mic when your speakers feed it back.
+                  advertises it. http://<the Mac>:7080/  and a wall-monitor grid at /multiview, a phone tally light at /tally.
+                  Takes OSC (grandMA3, OBS, Companion) on UDP 7081.
+  Camera sender   an Insta360 Link 2, an OBSBOT, or any UVC webcam as an NDI source WITH PTZ, no vendor software needed.
+                  One sender per camera ("profiles"). Mic in the same feed (muted at start), with howl detection, a
+                  speech-only voice mode and a monitoring-loop detector that mutes the mic when your speakers feed it back.
+                  The OBSBOT's own status LED works as a tally light.
   Display sender  one of the Mac's displays as an NDI source (off by default).
 
 What you need
 -------------
-1. An Apple Silicon Mac, macOS 14 or later.
-2. The NDI runtime: install NDI Tools from https://ndi.video/tools/ (puts libndi.dylib in /usr/local/lib).
-3. Rosetta 2 for the camera and display senders (the hub itself does not need it):
+1. A Mac with macOS 14 or later: Apple Silicon, or an Intel Mac (tested target: 2020 MacBook Pro). Everything runs
+   natively on Intel; on Apple Silicon the two senders run under Rosetta 2 (the Intel NDI library does not freeze).
+2. The NDI runtime: install NDI Tools from https://ndi.video/tools/ (puts the universal libndi.dylib in /usr/local/lib).
+3. Apple Silicon only: Rosetta 2 for the camera and display senders (the hub itself does not need it):
        softwareupdate --install-rosetta --agree-to-license
 
 Install
@@ -23,26 +26,82 @@ Install
 1. Unzip "OATS NDI HUB.zip" somewhere (Downloads is fine).
 2. Open Terminal and run:    "/path/to/OATS NDI HUB/install.sh"
    (drag the install.sh file into the Terminal window to get its path, then press Return)
-3. Click Allow when macOS asks for the camera, the microphone, local network, and (display sender) screen recording.
-   These prompts are attributed to Terminal, so start the first time from Terminal.
+   It asks two things:
+     - the NDI MACHINE NAME of this Mac (default: its hostname, upper-cased). Sources appear as "NAME (Link Cam)".
+     - the network interface to pin NDI to (en0, en1 ... or none). Pick the lighting / NDI network when the Mac has more
+       than one (Wi-Fi + cable), so NDI never goes out over the wrong one.
+   Non-interactive:  install.sh --yes --machine-name LAPTOP --lighting-nic en0     Preview only:  install.sh --dry-run
+3. CAMERA PERMISSION: macOS grants the camera and the microphone to the APP THAT STARTS the sender. The installer starts
+   it from your Terminal window, so click Allow when Terminal asks (camera, microphone, local network; display sender:
+   screen recording). After that the login item inherits the permission. If a sender was first started from somewhere
+   else (an IDE, a tool shell), it gets no camera and exits 77: run   oats-cam/cam.sh restart   from Terminal once.
 
 That installs to ~/Applications/OATS NDI HUB, adds a login item so it all starts at login, and starts it now.
-Run install.sh again later to update: presets and settings are kept.
+Run install.sh again later to update: cam.env, cam.*.env, presets*.json, audio.json, hub.env, screen.env and the NDI
+config are kept.
+
+TWO MACS ON ONE NETWORK (a laptop next to the show Mac)
+  Every install needs its OWN NDI machine name and its own adapter pin (or none). The installer never copies another
+  Mac's name: with the same name, "OBS.HOST (Link Cam)" would exist twice and receivers see only one of them. The
+  name + pin live in suite.env and ndi-config/ndi-config.v1.json inside the install (re-derived at every start by
+  ndi-config.sh, so a new DHCP address is fine). Rename later: edit suite.env, then  autostart.sh now.
+
+Cameras
+-------
+  Default profile "link" = the Insta360 Link 2 (oats-cam/cam.env; see oats-cam/examples/cam.env for every setting).
+  More cameras = one profile each: copy oats-cam/examples/cam.obsbot.env to oats-cam/cam.obsbot.env (edit CAM_DEVICE to
+  the exact name from  cam.sh list, keep it specific: OBSBOT Center also publishes a virtual camera), then
+      oats-cam/cam.sh -p obsbot start | stop | status | log
+  Every cam.<name>.env profile is started at login. Presets per profile: presets.obsbot.json (example included).
+  ONE CAMERA PER USB PORT: two UVC cameras on one hub or one port share its bandwidth and one of them drops frames.
+  CLOSE OBSBOT Center and Insta360 Link Controller while the senders run: their auto-tracking fights remote PTZ.
+  The hub's Audio / Voice buttons need each camera in oats-hub/hub.env HUB_AUDIO_CTL ("Link Cam=127.0.0.1:7001;OBSBOT
+  Cam=127.0.0.1:7002": short name = the sender's control port, one port per camera, CAM_CONTROL_PORT).
+
+Tally
+-----
+  HUB_TALLY (oats-hub/hub.env):
+    program  (default) selecting a camera in the hub puts it ON AIR (red).
+    preview  selecting only cues it (green); program comes from the real switcher (OBS/DistroAV, vMix, GoStream ...).
+             Use this whenever another program switcher is in the show.
+    off      the hub never sets tally.
+  The truth comes from the senders: every 300 ms the hub reads each camera's merged NDI tally (from every receiver).
+  OBSBOT LED: the camera's own status LED follows that tally (CAM_TALLY_LED=on: off = not live, full = program,
+              blink = preview; CAM_TALLY_LED=blink makes program blink too; off = leave the LED alone).
+  Phone tally: http://<the Mac>:7080/tally?id=<source id>  (no id = a picker) is a full-screen red / green / dark page
+              with wake lock; tap = fullscreen. Put an old phone on the camera mount. Ids as in /api/sources
+              (e.g. obs-host-link-cam = "OBS.HOST (Link Cam)").
+  Console tally: HUB_TALLY_OSC=<console ip>:8000 + HUB_TALLY_ON_CMD / HUB_TALLY_OFF_CMD (grandMA3 /cmd templates,
+              %s = the camera's short name) light a real fixture on every on-air change. /tally/<id>,i,0|1 is always
+              sent too (Companion, a WLED lamp).
+
+OSC input (port 7081, HUB_OSC_PORT)
+----------------------------------
+  <cam> = a source id, any unique part of it (obsbot, link) or "selected". Numbers may be ints or floats.
+    /ptz/<cam>/recall i [f speed]   /ptz/<cam>/store i      /ptz/<cam>/home          /ptz/<cam>/af
+    /ptz/<cam>/abs f pan f tilt     /ptz/<cam>/zoom f       /ptz/<cam>/focus f       (pan/tilt -1..1, zoom 0..1)
+    /ptz/<cam>/speed f pan f tilt   /ptz/<cam>/zoom_speed f /ptz/<cam>/stop
+    /select <cam> | /select none    /audio/<cam>/on|off|toggle|voice-on|voice-off
+  grandMA3: an OSC output line to this Mac, port 7081, then in a cue  SendOSC 3 "/ptz/obsbot/recall,i,2".
+  OBS (Advanced Scene Switcher): run  curl -s -X POST http://127.0.0.1:7080/api/ptz/<id>/recall -d '{"index":1}'
+  The port is LAN-open like the HTTP API: the lighting network is the trust boundary.
 
 Use
 ---
   Open http://<the Mac's IP>:7080/ on anything on the same network. On an iPad: Safari > Share > Add to Home Screen.
   Keys on the hub page: arrows pan/tilt, +/- zoom, 1-8 presets (shift stores), A mic on/off, V voice mode, space stop.
-  Camera:  ~/Applications/OATS\ NDI\ HUB/oats-cam/cam.sh status | restart | audio on|off|toggle|voice on|off
-  Hub:     ~/Applications/OATS\ NDI\ HUB/oats-hub/hub.sh status
-  Settings: oats-cam/cam.env (CAM_NAME, CAM_DEVICE, CAM_SIZE, CAM_FPS, CAM_AUDIO_START=1, CAM_AUDIO_MODE=voice),
-            oats-hub/hub.env (HUB_PORT, HUB_AUDIO_CTL), oats-screen/screen.env. Details in each folder's README.md.
+  Camera:  oats-cam/cam.sh [-p PROFILE] status | restart | log | list | audio on|off|toggle|voice on|off | tally led off|on|blink
+  Hub:     oats-hub/hub.sh status | restart | log          Display: touch oats-screen/ENABLED; oats-screen/screen.sh start
+  Settings: oats-cam/cam.env, oats-cam/cam.<profile>.env, oats-hub/hub.env, oats-screen/screen.env (examples in each
+            module's examples/ folder; every setting is explained there and in each folder's README.md).
+  Tools in oats-cam/bin: uvcprobe (direct UVC PTZ: cam.sh ptz info|pantilt|zoom), ptztest (NDI receiver-side PTZ test),
+            ndilisten (receive our own feed: level + latency), fbtest (feedback detector self-test).
 
 Known limits
 ------------
   The Insta360 Link 2 has 1-degree pan/tilt steps (fine for repositioning, not slow cinematic pans) and resets zoom
-  when the stream restarts. Keep Insta360 Link Controller closed: its tracking fights remote PTZ.
-  NDI PTZ has no position readback, so the zoom slider shows what you last set.
+  when the stream restarts. NDI PTZ has no position readback, so the zoom slider shows what you last set.
   Audio latency added by the sender is ~11 ms; what you hear in a receiver is mostly that receiver's own buffer.
+  An OBSBOT Tail Air has native NDI (its own app): no camera sender needed for that one.
 
 Uninstall:  "~/Applications/OATS NDI HUB/uninstall.sh"

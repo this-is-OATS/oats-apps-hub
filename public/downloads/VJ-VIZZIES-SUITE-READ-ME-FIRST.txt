@@ -1,0 +1,84 @@
+VJ VIZZIES SUITE: READ ME FIRST                                                               v0.2.0
+===============================
+
+The show laptop package from Fook'n Oats Enterprises. Two things in one zip:
+
+  VJ VIZZIES/      the clip + fractal player for shows: driven from grandMA3 (sACN universe 5 / OSC 7000), full screen on
+                   an extra display (HDMI to an LED processor or projector = the show feed), NDI "OATS VIZ Program" for
+                   previs, browser controls on port 8090 (phone, laptop, the PC launcher in windows/) and a small Mac app
+                   (the controls window + a menu-bar health dot with start / stop / restart / logs / open at login).
+  OATS NDI HUB/    the camera suite: an NDI multiview + free PTZ control in any browser (port 7080), any UVC webcam
+                   (Insta360 Link 2, OBSBOT ...) as an NDI camera WITH PTZ and a protected mic, a display as NDI, tally
+                   (phone page, OBSBOT LED, lighting console), OSC input on 7081. Its own READ ME FIRST.txt has the details.
+  windows/         the control window for a Windows PC (opens http://<the Mac>:8090 in its own Edge window). Edit the URL
+                   at the top of "VJ VIZZIES.vbs" / ".cmd" to this Mac's address.
+
+What the laptop needs
+---------------------
+1. macOS 14 (Sonoma) or later. Apple Silicon OR Intel: the 2020 Intel MacBook Pro is a supported target. Everything in
+   the camera suite ships native for both; the player runs natively on Apple Silicon and, on an Intel Mac, is compiled
+   once at install from the included sources (needs the Xcode Command Line Tools: run  xcode-select --install  first,
+   ~3-5 minutes; see "Intel" below). The fractal governor lowers the internal render resolution on a weaker GPU so the
+   output stays at the frame rate; the HDMI output is always full size.
+2. NDI Tools (free) from https://ndi.video/tools/ : the NDI runtime (/usr/local/lib/libndi.dylib, universal). Required.
+3. Apple Silicon only: Rosetta 2 (the camera / display senders and the NDI helper are Intel code; the Intel NDI library
+   does not freeze on fine detail, the Apple Silicon one does):   softwareupdate --install-rosetta --agree-to-license
+4. The laptop on the lighting network (cable or the show Wi-Fi), ideally with ONE interface on it.
+
+Install (double-click)
+----------------------
+1. Unzip "VJ-VIZZIES-SUITE-<version>.zip" (Downloads is fine). Keep the folder together.
+2. Double-click INSTALL.command. (If macOS refuses: right-click > Open > Open; it is ad-hoc signed, not notarized.)
+   It opens a Terminal window and asks two things, once, for both installers:
+     NDI MACHINE NAME  of this Mac (default: its hostname, upper-cased). Sources appear as "NAME (OATS VIZ Program)",
+                       "NAME (Link Cam)". EVERY MAC ON THE NETWORK NEEDS ITS OWN NAME (see "Two machines").
+     LIGHTING INTERFACE  en0, en1 ... the one on the lighting / NDI network. NDI is pinned to it, the player accepts
+                       sACN / OSC / the controls only from that network (and from the Mac itself) and waits for its
+                       address at start.
+   Then it installs:  ~/Applications/OATS NDI HUB   (login item com.fooknoats.oatsndihub)
+                      ~/Applications/VJ VIZZIES     (login item com.fooknoats.oatsviz) + /Applications/VJ VIZZIES.app
+   and starts everything. Settings, presets, scenes and media are kept when you run it again to update.
+   Non-interactive:  ./INSTALL.command --yes --machine-name LAPTOP --lighting-nic en0      Preview:  --dry-run
+3. Click Allow when macOS asks for the local network (sACN, OSC, NDI), the camera, the microphone and (display sender)
+   screen recording.
+4. LAST STEP, from the same Terminal window, once:   "~/Applications/OATS NDI HUB/oats-cam/cam.sh" restart
+   CAMERA PERMISSION BELONGS TO THE APP THAT STARTS THE SENDER. Started from Terminal, Terminal gets the camera and the
+   microphone, and the login item inherits that. A sender first started from an IDE or a tool shell gets no camera and
+   exits 77.
+
+Intel Mac (2020 MacBook Pro)
+----------------------------
+  The camera suite runs as shipped. The player: the shipped oats-m0 binary is Apple Silicon (the show Mac's build); the
+  VJ VIZZIES installer sees an Intel Mac and offers to compile it:  OATS_BUILD_ONLY=player ./m0.sh build --x86  in
+  ~/Applications/VJ VIZZIES/oats-m0 (Command Line Tools, ~600 MB free, 3-5 min). Say yes, or run that line later.
+  NDI previs on Intel uses the player's own NDI library ("native": it is the Intel library, no helper, no Rosetta).
+  Expect lower fractal detail than on an M-series Mac: the governor keeps the frame rate, not the resolution.
+
+Two machines on one network (the laptop next to the show Mac)
+-------------------------------------------------------------
+  The show Mac is "OBS.HOST", pinned to its cable. The laptop must NOT be: the installer never copies another Mac's
+  name or address, it asks for this Mac's own. With the same name, "OBS.HOST (Link Cam)" would exist twice and
+  receivers (Vision, OBS, the hub) see only one of them. Where it lives: OATS NDI HUB/suite.env (+ ndi-config/, rewritten
+  at every start by ndi-config.sh) and VJ VIZZIES/oats-m0/m0.env (+ ndi-config/, rewritten by m0.sh at every start).
+  Rename later: edit those two files, then  autostart.sh now  in each folder.
+  Both players listen on sACN universe 5 and OSC 7000: give the laptop its own universe on the console (or stop one
+  player) when both are on the lighting network, and point the PC launcher (windows/) at the Mac you mean.
+
+Use
+---
+  Player controls   http://<this Mac>:8090  (lighting network only). VJ VIZZIES.app opens the same, with the health dot.
+  Player            ~/Applications/VJ VIZZIES/oats-m0/m0.sh status | stop | log ;  autostart.sh now  starts everything
+                    (start flags: --no-ndi-meta --universe 5 --ndi helper|native, in autostart.sh)
+  Clips             ~/Applications/VJ VIZZIES/media/<bank>/ + library.json: the controls' clip grid uploads into it.
+                    make-suite.sh --with-media ships the example library; otherwise media/ starts empty.
+  Scenes / looks    oats-m0/scenes.json (an example is seeded), tools/*_presets.json. Show packs: not in this build.
+  Hub               http://<this Mac>:7080/  multiview at /multiview, phone tally at /tally. OSC in on 7081.
+  Cameras           "OATS NDI HUB/READ ME FIRST.txt": profiles (one per camera, cam.<name>.env), one camera per USB
+                    port, close OBSBOT Center / Link Controller, tally modes (HUB_TALLY program|preview|off), the
+                    OBSBOT LED tally (CAM_TALLY_LED), the OSC address list.
+  Update            unzip the new suite, double-click INSTALL.command again (same answers; everything of yours is kept).
+  Uninstall         "~/Applications/OATS NDI HUB/uninstall.sh" and "~/Applications/VJ VIZZIES/uninstall.sh"; the
+                    folders stay for you to delete.
+
+Licences: VJ VIZZIES/oats-m0/README.md (NDI notice; the Ableton Link helper bin/oats-link is GPL-2.0-or-later, source
+in the developer tree link-helper/). Media licensing: only put clips in the media folder that you are allowed to use.
