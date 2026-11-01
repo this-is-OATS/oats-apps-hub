@@ -58,7 +58,7 @@ url:"https://claude.ai/artifact/57sQ9R49ADJV83cXNrwqsA", ghRepo:null, color:T.pu
 stack:["Swift","NDI","WebSocket","macOS"],
 description:"NDI multiview + free PTZ control in any browser; an Insta360 Link 2 (any UVC webcam) as an NDI camera with PTZ and a protected mic; a display as NDI. Mac download, installs as a login item.",
 url:"https://oats-apps-hub.vercel.app/ndi-hub/", ghRepo:null, color:T.teal },
-{ id:"vj-vizzies", name:"VJ VIZZIES SUITE", emoji:"🌀", version:"v0.2.0", status:"live", progress:80,
+{ id:"vj-vizzies", name:"VJ VIZZIES SUITE", emoji:"🌀", version:"v0.2.1", status:"live", progress:80,
 stack:["Swift","Metal","sACN","OSC","NDI"],
 description:"The show laptop package: the VJ VIZZIES clip + fractal player (grandMA3 sACN / OSC, HDMI show output, NDI previs, NDI cameras as layers) plus the OATS NDI HUB camera suite, one double-click installer. Intel and Apple Silicon Macs, nothing to compile.",
 url:"https://oats-apps-hub.vercel.app/vizzies/", ghRepo:null, color:T.purple },

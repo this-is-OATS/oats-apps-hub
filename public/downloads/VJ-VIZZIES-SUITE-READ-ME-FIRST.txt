@@ -19,7 +19,7 @@ What the laptop needs
    the suite ships native for both: the camera suite and the player are universal binaries (Apple Silicon + Intel),
    nothing to compile and no developer tools needed. The fractal governor lowers the internal render resolution on a weaker GPU so the
    output stays at the frame rate; the HDMI output is always full size.
-2. NDI Tools (free) from https://ndi.video/tools/ : the NDI runtime (/usr/local/lib/libndi.dylib, universal). Required.
+2. The NDI runtime (/usr/local/lib/libndi.dylib, universal). NDI Tools (free, https://ndi.video/tools/) normally installs it; if not, INSTALL.command installs the bundled copy (asks for your password).
 3. Apple Silicon only: Rosetta 2 (the camera / display senders and the NDI helper are Intel code; the Intel NDI library
    does not freeze on fine detail, the Apple Silicon one does):   softwareupdate --install-rosetta --agree-to-license
 4. The laptop on the lighting network (cable or the show Wi-Fi), ideally with ONE interface on it.
