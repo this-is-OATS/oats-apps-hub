@@ -16,9 +16,8 @@ The show laptop package from Fook'n Oats Enterprises. Two things in one zip:
 What the laptop needs
 ---------------------
 1. macOS 14 (Sonoma) or later. Apple Silicon OR Intel: the 2020 Intel MacBook Pro is a supported target. Everything in
-   the camera suite ships native for both; the player runs natively on Apple Silicon and, on an Intel Mac, is compiled
-   once at install from the included sources (needs the Xcode Command Line Tools: run  xcode-select --install  first,
-   ~3-5 minutes; see "Intel" below). The fractal governor lowers the internal render resolution on a weaker GPU so the
+   the suite ships native for both: the camera suite and the player are universal binaries (Apple Silicon + Intel),
+   nothing to compile and no developer tools needed. The fractal governor lowers the internal render resolution on a weaker GPU so the
    output stays at the frame rate; the HDMI output is always full size.
 2. NDI Tools (free) from https://ndi.video/tools/ : the NDI runtime (/usr/local/lib/libndi.dylib, universal). Required.
 3. Apple Silicon only: Rosetta 2 (the camera / display senders and the NDI helper are Intel code; the Intel NDI library
@@ -48,9 +47,9 @@ Install (double-click)
 
 Intel Mac (2020 MacBook Pro)
 ----------------------------
-  The camera suite runs as shipped. The player: the shipped oats-m0 binary is Apple Silicon (the show Mac's build); the
-  VJ VIZZIES installer sees an Intel Mac and offers to compile it:  OATS_BUILD_ONLY=player ./m0.sh build --x86  in
-  ~/Applications/VJ VIZZIES/oats-m0 (Command Line Tools, ~600 MB free, 3-5 min). Say yes, or run that line later.
+  The camera suite and the player run as shipped (universal binaries). Only if a future package ever ships an
+  Apple-Silicon-only player would the installer offer to compile it (OATS_BUILD_ONLY=player ./m0.sh build --x86, needs the
+  Xcode Command Line Tools); with this package it does not ask.
   NDI previs on Intel uses the player's own NDI library ("native": it is the Intel library, no helper, no Rosetta).
   Expect lower fractal detail than on an M-series Mac: the governor keeps the frame rate, not the resolution.
 
@@ -72,6 +71,10 @@ Use
   Clips             ~/Applications/VJ VIZZIES/media/<bank>/ + library.json: the controls' clip grid uploads into it.
                     make-suite.sh --with-media ships the example library; otherwise media/ starts empty.
   Scenes / looks    oats-m0/scenes.json (an example is seeded), tools/*_presets.json. Show packs: not in this build.
+  NDI sources       a layer can show an NDI sender on the LAN (source "ndi", DMX layer source 30-39 picks the n-th source;
+                    README "NDI sources"). Optional: oats-m0/ndi_order.json fixes the slot order by name (file-based,
+                    kept on update); without it the discovered order is used.
+  grandMA3 fixture  gdtf/OATS@OATS VIZ.gdtf (v0.10) next to the player folder: import it into the console's fixture library.
   Hub               http://<this Mac>:7080/  multiview at /multiview, phone tally at /tally. OSC in on 7081.
   Cameras           "OATS NDI HUB/READ ME FIRST.txt": profiles (one per camera, cam.<name>.env), one camera per USB
                     port, close OBSBOT Center / Link Controller, tally modes (HUB_TALLY program|preview|off), the
