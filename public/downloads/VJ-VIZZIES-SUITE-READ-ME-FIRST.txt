@@ -1,4 +1,4 @@
-VJ VIZZIES SUITE: READ ME FIRST                                                               v0.2.0
+VJ VIZZIES SUITE: READ ME FIRST                                                               v0.3.0
 ===============================
 
 The show laptop package from Fook'n Oats Enterprises. Two things in one zip:
@@ -6,7 +6,7 @@ The show laptop package from Fook'n Oats Enterprises. Two things in one zip:
   VJ VIZZIES/      the clip + fractal player for shows: driven from grandMA3 (sACN universe 5 / OSC 7000), full screen on
                    an extra display (HDMI to an LED processor or projector = the show feed), NDI "OATS VIZ Program" for
                    previs, browser controls on port 8090 (phone, laptop, the PC launcher in windows/) and a small Mac app
-                   (the controls window + a menu-bar health dot with start / stop / restart / logs / open at login).
+                   (the installer, the controls window and a menu-bar health dot with start / stop / restart / logs / open at login).
   OATS NDI HUB/    the camera suite: an NDI multiview + free PTZ control in any browser (port 7080), any UVC webcam
                    (Insta360 Link 2, OBSBOT ...) as an NDI camera WITH PTZ and a protected mic, a display as NDI, tally
                    (phone page, OBSBOT LED, lighting console), OSC input on 7081. Its own READ ME FIRST.txt has the details.
@@ -24,26 +24,36 @@ What the laptop needs
    does not freeze on fine detail, the Apple Silicon one does):   softwareupdate --install-rosetta --agree-to-license
 4. The laptop on the lighting network (cable or the show Wi-Fi), ideally with ONE interface on it.
 
-Install (double-click)
-----------------------
-1. Unzip "VJ-VIZZIES-SUITE-<version>.zip" (Downloads is fine). Keep the folder together.
-2. Double-click INSTALL.command. (If macOS refuses: right-click > Open > Open; it is ad-hoc signed, not notarized.)
-   It opens a Terminal window and asks two things, once, for both installers:
+Install (the .dmg: drag, open, two questions)
+--------------------------------------------
+1. Download VJ-VIZZIES-SUITE-<version>.dmg from https://oats-apps-hub.vercel.app/vizzies/ and open it.
+2. Drag "VJ VIZZIES" onto the "Applications" folder next to it. Open it from Applications.
+   First time on a Mac, macOS refuses (the app is not notarized yet): System Settings > Privacy & Security > scroll down
+   > "Open Anyway", then open it again. Once per Mac; updates from inside the app do not ask again.
+3. The setup window asks two things:
      NDI MACHINE NAME  of this Mac (default: its hostname, upper-cased). Sources appear as "NAME (OATS VIZ Program)",
                        "NAME (Link Cam)". EVERY MAC ON THE NETWORK NEEDS ITS OWN NAME (see "Two machines").
      LIGHTING INTERFACE  en0, en1 ... the one on the lighting / NDI network. NDI is pinned to it, the player accepts
                        sACN / OSC / the controls only from that network (and from the Mac itself) and waits for its
                        address at start.
-   Then it installs:  ~/Applications/OATS NDI HUB   (login item com.fooknoats.oatsndihub)
-                      ~/Applications/VJ VIZZIES     (login item com.fooknoats.oatsviz) + /Applications/VJ VIZZIES.app
-   and starts everything. Settings, presets, scenes and media are kept when you run it again to update.
-   Non-interactive:  ./INSTALL.command --yes --machine-name LAPTOP --lighting-nic en0      Preview:  --dry-run
-3. Click Allow when macOS asks for the local network (sACN, OSC, NDI), the camera, the microphone and (display sender)
-   screen recording.
-4. LAST STEP, from the same Terminal window, once:   "~/Applications/OATS NDI HUB/oats-cam/cam.sh" restart
-   CAMERA PERMISSION BELONGS TO THE APP THAT STARTS THE SENDER. Started from Terminal, Terminal gets the camera and the
-   microphone, and the login item inherits that. A sender first started from an IDE or a tool shell gets no camera and
-   exits 77.
+   Click Install. Click Allow when macOS asks for the camera, the microphone and the local network: the APP asks, so the
+   camera senders and the player it starts inherit the permission (no Terminal step any more). If the NDI runtime is
+   missing (/usr/local/lib/libndi.dylib), it asks for your password once and installs the bundled NDI 6.3.2 (and
+   Rosetta 2 on Apple Silicon when that is missing).
+   It installs:  ~/Applications/OATS NDI HUB   and   ~/Applications/VJ VIZZIES, starts everything, and registers itself
+   as the login item (com.fooknoats.oatsviz: the app opens at login and starts the hub, the cameras and the player).
+4. Update: "Check for Updates..." in the app (it also checks once a day) downloads the next version from the site and
+   replaces itself; or drag a newer dmg's app over the old one. The app then updates both installs in place: settings,
+   presets, scenes, camera profiles and media are kept. The hidden menu items: VJ VIZZIES > "Set up / Update this Mac..."
+   re-runs the setup with your current answers.
+
+Install (the zip: scripted, Terminal)
+-------------------------------------
+   Unzip VJ-VIZZIES-SUITE-<version>.zip, double-click INSTALL.command (or  ./INSTALL.command --yes --machine-name LAPTOP
+   --lighting-nic en0 ; preview with --dry-run). Same two questions, same folders; the thin VJ VIZZIES.app (controls only)
+   goes to /Applications. With this path the login items are zsh scripts, so the camera permission still needs the one
+   Terminal step:  "~/Applications/OATS NDI HUB/oats-cam/cam.sh" restart   from the same Terminal, once, click Allow.
+   The same scripts are inside the dmg's app: "/Applications/VJ VIZZIES.app/Contents/Resources/suite/INSTALL.command".
 
 Intel Mac (2020 MacBook Pro)
 ----------------------------
@@ -79,7 +89,7 @@ Use
   Cameras           "OATS NDI HUB/READ ME FIRST.txt": profiles (one per camera, cam.<name>.env), one camera per USB
                     port, close OBSBOT Center / Link Controller, tally modes (HUB_TALLY program|preview|off), the
                     OBSBOT LED tally (CAM_TALLY_LED), the OSC address list.
-  Update            unzip the new suite, double-click INSTALL.command again (same answers; everything of yours is kept).
+  Update            "Check for Updates..." in VJ VIZZIES.app, or open a newer dmg's app (zip: INSTALL.command again). Everything of yours is kept.
   Uninstall         "~/Applications/OATS NDI HUB/uninstall.sh" and "~/Applications/VJ VIZZIES/uninstall.sh"; the
                     folders stay for you to delete.
 

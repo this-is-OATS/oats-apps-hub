@@ -1,0 +1,13 @@
+{
+  "version": "0.3.0",
+  "date": "2026-11-01",
+  "dmg": "https://oats-apps-hub.vercel.app/downloads/VJ-VIZZIES-SUITE-0.3.0.dmg",
+  "sha256": "b4d9800f316204af3fc87c6cacd8569383a0ac2e60fcedfa889344a975221c5c",
+  "size": 12931644,
+  "zip": "https://oats-apps-hub.vercel.app/downloads/VJ-VIZZIES-SUITE-0.3.0.zip",
+  "zip_sha256": "aafefc1a322c446dd0ec1bf68a32f1b6bbf845fb90a03d16c16ca14b3a93fb0d",
+  "notes": "Drag-to-Applications installer: VJ VIZZIES.app sets this Mac up on first launch (two questions, no Terminal), asks for the camera, microphone and local network itself, starts the cameras and the player as its own children, updates in place and updates itself from this page.",
+  "min_macos": "14.0",
+  "signed": false,
+  "page": "https://oats-apps-hub.vercel.app/vizzies/"
+}
