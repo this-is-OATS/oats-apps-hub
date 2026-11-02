@@ -54,7 +54,7 @@ url:"https://truck-map-app.vercel.app", ghRepo:"this-is-OATS/truck-map-app", col
 stack:["Google Timeline","Canvas","D3"],
 description:"Suite of Google Timeline tools: Hours Infographic, Timeline Reel, Travel Atlas. One export feeds all of them, read on-device.",
 url:"https://claude.ai/artifact/57sQ9R49ADJV83cXNrwqsA", ghRepo:null, color:T.purple, category:"internal" },
-{ id:"oats-ndi-hub", name:"OATS NDI HUB", emoji:"🎛", version:"v0.2.0", status:"live", progress:55,
+{ id:"oats-ndi-hub", name:"OATS NDI HUB", emoji:"🎛", version:"v0.2.3", status:"live", progress:55,
 stack:["Swift","NDI","WebSocket","macOS"],
 description:"NDI multiview + free PTZ control in any browser; an Insta360 Link 2 (any UVC webcam) as an NDI camera with PTZ and a protected mic; a display as NDI. Mac download, installs as a login item.",
 url:"https://oats-apps-hub.vercel.app/ndi-hub/", ghRepo:null, color:T.teal },
