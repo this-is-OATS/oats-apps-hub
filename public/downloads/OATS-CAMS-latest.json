@@ -1,10 +1,10 @@
 {
-  "version": "0.3.10",
+  "version": "0.3.11",
   "date": "2026-11-05",
-  "dmg": "https://oats-apps-hub.vercel.app/downloads/OATS-CAMS-0.3.10.dmg",
-  "sha256": "b8571d98576985555dc40cdd5461a7fe0590962d591746eb1d5d419638839748",
-  "size": 7550575,
-  "notes": "Insta360 Link tracking: its own face tracker (Apple Vision, confirmed faces only) drives the gimbal; when the face is lost it scans limit to limit, one glide per leg, with a cooldown (cam.sh CAM_SCAN). Hub: limit-to-limit sweep at the speed slider rate, joystick invert toggles, 16:9 preview with the multiview under it.",
+  "dmg": "https://oats-apps-hub.vercel.app/downloads/OATS-CAMS-0.3.11.dmg",
+  "sha256": "b71886ba287b14c57ff24f94ac2e54809cfdfceb3b07093437e1a99647b9e528",
+  "size": 7577439,
+  "notes": "Insta360 Link tracking: its own body and face tracker with park, search skip zones and a tilt limit. Hub: compact layout, the tracker state shown on the pad ring. Setup never downgrades: a re-run keeps an installed tree that is the same or newer, and after an error it offers to start what is not running instead of reinstalling.",
   "min_macos": "13.0",
   "signed": false,
   "page": "https://oats-apps-hub.vercel.app/vizzies/"
