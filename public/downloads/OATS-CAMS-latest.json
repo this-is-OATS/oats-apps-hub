@@ -1,10 +1,10 @@
 {
-  "version": "0.3.12",
+  "version": "0.3.13",
   "date": "2026-11-05",
-  "dmg": "https://oats-apps-hub.vercel.app/downloads/OATS-CAMS-0.3.12.dmg",
-  "sha256": "6d3ad49ab4cfd3aaf70c72d6fe88726762497a47596ea2817fe4fd02064bc656",
-  "size": 7580066,
-  "notes": "Hub layout: the camera grid sits right under the preview and shows every card; the tall controls column no longer stretches the preview row (no empty gap, nothing cut off). Includes everything in 0.3.11.",
+  "dmg": "https://oats-apps-hub.vercel.app/downloads/OATS-CAMS-0.3.13.dmg",
+  "sha256": "f5e958a9d699704f7203aa78ddd7dce3dcd83cf7e64409052934387890112400",
+  "size": 7578003,
+  "notes": "No auto mute: feedback and monitor loops only warn, the mic stays as you set it (CAM_FEEDBACK / CAM_ECHO default warn). Hub: Body and Face tag toggles for the tracker boxes on the preview, presets under the settings, smoother previews (1280 wide at 25 fps instead of 1080p at 12).",
   "min_macos": "13.0",
   "signed": false,
   "page": "https://oats-apps-hub.vercel.app/vizzies/"
