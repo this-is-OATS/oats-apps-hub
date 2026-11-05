@@ -1,4 +1,4 @@
-VJ VIZZIES SUITE: READ ME FIRST                                                               v0.3.8
+VJ VIZZIES SUITE: READ ME FIRST                                                               v0.3.9
 ===============================
 
 The show laptop package from Fook'n Oats Enterprises. Two things in one zip:
@@ -45,7 +45,8 @@ Install (the .dmg: drag, open, two questions)
    CAMERAS ONLY: OATS CAMS.app (the house icon, also in the dmg, or alone as OATS-CAMS-<version>.dmg) installs and
    starts only ~/Applications/OATS NDI HUB (the hub + every camera), never the player. It lives in the menu bar (no Dock
    icon, no window at start): per-camera status, Restart cameras (a camera that came up frozen), Restart hub, the hub
-   page, the multiview, Open at login (its own login item, com.fooknoats.oatscams). Give OATS CAMS the camera and
+   page, the multiview, Open at login (its own login item, com.fooknoats.oatscams), Check for Updates… (it also checks once a
+   day, from its own feed, and updates without VJ VIZZIES). Give OATS CAMS the camera and
    microphone. With both apps installed, OATS CAMS owns the cameras and VJ VIZZIES no longer starts them.
 4. Update: "Check for Updates..." in the app (it also checks once a day) downloads the next version from the site and
    replaces itself; or drag a newer dmg's app over the old one. The app then updates both installs in place: settings,

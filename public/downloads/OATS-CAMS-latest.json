@@ -1,0 +1,11 @@
+{
+  "version": "0.3.9",
+  "date": "2026-11-05",
+  "dmg": "https://oats-apps-hub.vercel.app/downloads/OATS-CAMS-0.3.9.dmg",
+  "sha256": "671c77d2109773f9b8b64628785406c1d0a9972e024cdad6895765811fe638a1",
+  "size": 7544410,
+  "notes": "OATS CAMS updates itself: its own feed (OATS-CAMS-latest.json), a quiet daily check and Check for Updates\u2026 in its menu; an update reinstalls the camera suite and restarts the cameras under the app, no clicks. VJ VIZZIES is not needed for it.",
+  "min_macos": "13.0",
+  "signed": false,
+  "page": "https://oats-apps-hub.vercel.app/vizzies/"
+}
