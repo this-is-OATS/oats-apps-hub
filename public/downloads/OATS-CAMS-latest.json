@@ -1,10 +1,10 @@
 {
-  "version": "0.3.9",
+  "version": "0.3.10",
   "date": "2026-11-05",
-  "dmg": "https://oats-apps-hub.vercel.app/downloads/OATS-CAMS-0.3.9.dmg",
-  "sha256": "671c77d2109773f9b8b64628785406c1d0a9972e024cdad6895765811fe638a1",
-  "size": 7544410,
-  "notes": "OATS CAMS updates itself: its own feed (OATS-CAMS-latest.json), a quiet daily check and Check for Updates\u2026 in its menu; an update reinstalls the camera suite and restarts the cameras under the app, no clicks. VJ VIZZIES is not needed for it.",
+  "dmg": "https://oats-apps-hub.vercel.app/downloads/OATS-CAMS-0.3.10.dmg",
+  "sha256": "b8571d98576985555dc40cdd5461a7fe0590962d591746eb1d5d419638839748",
+  "size": 7550575,
+  "notes": "Insta360 Link tracking: its own face tracker (Apple Vision, confirmed faces only) drives the gimbal; when the face is lost it scans limit to limit, one glide per leg, with a cooldown (cam.sh CAM_SCAN). Hub: limit-to-limit sweep at the speed slider rate, joystick invert toggles, 16:9 preview with the multiview under it.",
   "min_macos": "13.0",
   "signed": false,
   "page": "https://oats-apps-hub.vercel.app/vizzies/"
