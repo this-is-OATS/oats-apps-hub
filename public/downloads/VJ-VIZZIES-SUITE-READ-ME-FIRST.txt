@@ -1,4 +1,4 @@
-VJ VIZZIES SUITE: READ ME FIRST                                                               v0.3.4
+VJ VIZZIES SUITE: READ ME FIRST                                                               v0.3.5
 ===============================
 
 The show laptop package from Fook'n Oats Enterprises. Two things in one zip:
