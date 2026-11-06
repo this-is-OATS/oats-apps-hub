@@ -1,10 +1,10 @@
 {
-  "version": "0.3.13",
-  "date": "2026-11-05",
-  "dmg": "https://oats-apps-hub.vercel.app/downloads/OATS-CAMS-0.3.13.dmg",
-  "sha256": "f5e958a9d699704f7203aa78ddd7dce3dcd83cf7e64409052934387890112400",
-  "size": 7578003,
-  "notes": "No auto mute: feedback and monitor loops only warn, the mic stays as you set it (CAM_FEEDBACK / CAM_ECHO default warn). Hub: Body and Face tag toggles for the tracker boxes on the preview, presets under the settings, smoother previews (1280 wide at 25 fps instead of 1080p at 12).",
+  "version": "0.3.14",
+  "date": "2026-11-06",
+  "dmg": "https://oats-apps-hub.vercel.app/downloads/OATS-CAMS-0.3.14.dmg",
+  "sha256": "fae6c6004b092f713e55b17fc6dd1ba29372a5586bccc0f820d8f7c9079f1f10",
+  "size": 7577486,
+  "notes": "Snappier live previews: the control window and the APC mini page now fetch the newest frame each time instead of a pushed stream, so a slow window drops frames instead of falling seconds behind. Docked monitor at 30 fps (was 15). The player skips frames for a viewer whose network queue is backing up. Monitors keep at least 180 px when a tab is tall. Includes everything in 0.3.13.",
   "min_macos": "13.0",
   "signed": false,
   "page": "https://oats-apps-hub.vercel.app/vizzies/"
