@@ -1,10 +1,10 @@
 {
-  "version": "0.3.15",
+  "version": "0.3.16",
   "date": "2026-11-06",
-  "dmg": "https://oats-apps-hub.vercel.app/downloads/OATS-CAMS-0.3.15.dmg",
-  "sha256": "59d1be0b02ac7269bdd93b8f762262896f96214f6e0f3a4d7900ec1e4ea3c9af",
-  "size": 7577437,
-  "notes": "Layout fixes found while writing the user guide: the APC mini page's output preview no longer keeps the \"Connecting\" text over the live picture; in the control window the editor tabs wrap to a second row on narrower windows instead of pushing the layer names off screen, and the Scenes toolbar fits with STORE fully visible. Includes everything in 0.3.14.",
+  "dmg": "https://oats-apps-hub.vercel.app/downloads/OATS-CAMS-0.3.16.dmg",
+  "sha256": "28b854c5164a5d391700a08e7ad53a26ff66e8406d8d539467563119cba66fdc",
+  "size": 7577512,
+  "notes": "Stability: fixed a player freeze when a layer's Auto changed clips quickly (a new clip every 1 to 2 beats could stall the player and trigger a restart within a minute); the player also uses far less memory. The phone page's live preview now fetches the newest frame like the control window and APC page, so it never lags behind. The User guide (PDF) is on the download page. Includes everything in 0.3.15.",
   "min_macos": "13.0",
   "signed": false,
   "page": "https://oats-apps-hub.vercel.app/vizzies/"
