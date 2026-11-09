@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MAKER-LAB · OATS APPS</title>
+<meta property="og:title" content="MAKER-LAB"><meta property="og:description" content="The embroidery bench for a Brother PE-770: build stitch files, see them as real thread, check them, load the stick. One Mac app, updates itself.">
+<style>
+:root{--bg:#0A0A0A;--surface:#111;--card:#161616;--border:#1E1E1E;--gold:#C8A96E;--text:#E8E4DC;--mid:#9A9690;--dim:#555550;--teal:#7EB8A4}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 Inter,-apple-system,system-ui,sans-serif}
+main{max-width:760px;margin:0 auto;padding:28px 16px 80px}
+a.back{font:10px/1 monospace;color:var(--mid);text-decoration:none;letter-spacing:.1em;text-transform:uppercase}
+h1{font-size:28px;letter-spacing:-.02em;margin:18px 0 6px}
+.tag{color:var(--mid);margin:0 0 18px}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 26px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:10px;text-decoration:none;font:600 13px/1 monospace;letter-spacing:.04em}
+.dl{background:var(--gold);color:#000} .alt{background:var(--card);color:var(--gold);border:1px solid #C8A96E40}
+.ver{font:11px monospace;color:var(--dim)}
+h2{font:700 10px/1 monospace;color:var(--dim);letter-spacing:.14em;text-transform:uppercase;margin:26px 0 10px}
+ul,ol{margin:0;padding-left:18px;color:var(--mid)} li{margin:4px 0}
+ol.steps li{margin:8px 0;color:var(--text)} ol.steps small{display:block;color:var(--mid);font-size:13px}
+pre{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;overflow:auto;font-size:12px;color:var(--text)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px 20px}
+code{font:12px monospace;color:var(--teal)}
+footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--border);font:9px monospace;color:var(--dim);letter-spacing:.06em}
+</style></head><body><main>
+<a class="back" href="/">← OATS APPS</a>
+<h1>MAKER-LAB</h1>
+<p class="tag">The embroidery bench for a Brother PE-770: build stitch files (satin lettering in the Mac's own fonts, fills, borders, pictures), see them as design, stitches and real thread, check them against the machine's rules, and load the USB stick. One Mac app; it updates itself.</p>
+<div class="row"><a class="btn dl" href="https://github.com/this-is-OATS/oats-apps-hub/releases/download/maker-lab-v1.1.0/MAKER-LAB-1.1.0.dmg">⬇ Download for Mac (.dmg, 113 MB)</a><span class="ver">v1.1.0 · 2026-11-08 · Apple Silicon, macOS 13 or later</span></div>
+<div class="card"><h2 style="margin-top:0">Install</h2>
+<ol class="steps">
+<li>Download the .dmg and open it.</li>
+<li>Drag <b>MAKER-LAB</b> to the <b>Applications</b> folder next to it.</li>
+<li>Open MAKER-LAB from Applications. <small>The first time, macOS says it cannot verify the app (it is not notarized). Open <b>System Settings › Privacy &amp; Security</b>, scroll down to the line about MAKER-LAB, click <b>Open Anyway</b>, then <b>Open</b>. (macOS 14 and earlier: right-click the app, <b>Open</b>, <b>Open</b>.) If it says the app is damaged, run <code>xattr -d com.apple.quarantine "/Applications/MAKER-LAB.app"</code> in Terminal.</small></li>
+<li>If macOS asks about removable volumes (the stick), click <b>Allow</b>.</li>
+<li>Done. From then on the app looks for a newer version when it opens and every 45 minutes, downloads it in the background, and installs it once the Mac has been idle for ten minutes and nothing is building or copying. <b>MAKER-LAB › Check for Updates…</b> does it now.</li>
+</ol>
+<h2>What it does</h2><ul>
+<li>Builds .pes stitch files for the PE-770 from words, a font and a shape: satin or fill lettering, raised letters, borders, pictures; every file passes the machine checks before it can go on the stick.</li>
+<li>Shows each file three ways, plays the sew-out, lists every thread stop, and loads the stick (a button, never by itself).</li>
+<li>Keeps everything it makes in <code>~/Library/Application Support/MAKER-LAB</code>; an update never touches it.</li></ul>
+<h2>You need</h2><ul><li>An Apple Silicon Mac with macOS 13 or later.</li><li>A USB stick named EMBROIDER (FAT32) to load files for a PE-770.</li><li>Optional: the <code>claude</code> command line tool for the chat bar.</li></ul>
+<h2>Release notes</h2><p style="color:var(--mid)">First version that installs from a disk image and updates itself. Letters made of A K M N T V W X Y in an outline font are sewn as clean rows in place of the satin that piled up at their junctions. Padded, raised and domed letters sew the padding of every letter first and the covering stitches after it. The Real thread view draws thread in the order it is sewn, so padding no longer shows through the top, and every page shows the app&#x27;s version.</p></div>
+<footer>FOOK'N OATS ENTERPRISES · OATMEAL INTELLIGENCE DIVISION</footer>
+</main></body></html>

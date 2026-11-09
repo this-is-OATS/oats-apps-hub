@@ -1,0 +1,11 @@
+{
+  "version": "1.1.0",
+  "date": "2026-11-08",
+  "dmg": "https://github.com/this-is-OATS/oats-apps-hub/releases/download/maker-lab-v1.1.0/MAKER-LAB-1.1.0.dmg",
+  "sha256": "c47413d0c90639b41ac7b32fd73c2f53642b0c57e8799268c85ca6e59fdf24de",
+  "size": 113135414,
+  "notes": "First version that installs from a disk image and updates itself. Letters made of A K M N T V W X Y in an outline font are sewn as clean rows in place of the satin that piled up at their junctions. Padded, raised and domed letters sew the padding of every letter first and the covering stitches after it. The Real thread view draws thread in the order it is sewn, so padding no longer shows through the top, and every page shows the app's version.",
+  "min_macos": "13.0",
+  "signed": false,
+  "page": "https://oats-apps-hub.vercel.app/maker-lab/"
+}

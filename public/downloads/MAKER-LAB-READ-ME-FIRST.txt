@@ -1,0 +1,39 @@
+MAKER-LAB: READ ME FIRST
+========================
+
+MAKER-LAB is the embroidery bench for a Brother PE-770: it builds stitch files (satin lettering in the Mac's fonts, fills, borders, pictures),
+shows them as design / stitches / real thread before anything is sewn, checks them against the machine's rules, and copies the one you pick onto
+the USB stick. It is one Mac app with everything inside: nothing else to install.
+
+What you need
+-------------
+1. An Apple Silicon Mac (M1 or later) with macOS 13 (Ventura) or later.
+2. Optional: the "claude" command line tool, for the chat bar at the bottom of the pages. Everything else works without it.
+3. A USB stick named EMBROIDER (FAT32) if you want it to load files for a Brother PE-770.
+
+Install
+-------
+1. Open "MAKER-LAB-<version>.dmg" and drag MAKER-LAB onto the Applications folder next to it.
+2. The first time, macOS refuses it ("Apple could not verify MAKER-LAB is free of malware"): it is signed with its own certificate, not by an
+   Apple developer account. Open System Settings > Privacy & Security, scroll down to the line about MAKER-LAB and click "Open Anyway", then Open.
+   (On macOS 14 and earlier, right-click MAKER-LAB in Applications > Open > Open does the same.) If macOS says the app is damaged, run in Terminal:
+       xattr -d com.apple.quarantine "/Applications/MAKER-LAB.app"
+3. If macOS asks whether MAKER-LAB may access removable volumes (the stick), click Allow. If it ever asks for "App Management", turn
+   MAKER-LAB on under System Settings > Privacy & Security > App Management.
+
+Updates
+-------
+The app looks for a newer version a few seconds after it opens and every 45 minutes. It downloads the update in the background, checks it, and
+installs it once the Mac has had no keyboard or mouse for ten minutes and the bench has nothing running (no build, no copy to the stick), then
+restarts itself. MAKER-LAB menu > "Check for Updates..." does it now; "Install Updates Automatically" turns the waiting off. The header of every
+page shows the version and build, for example "Embroidery · Brother PE-770 · 1.1.0 (01a6036)".
+
+Where things live
+-----------------
+- The app: /Applications/MAKER-LAB.app (the app replaces itself there; do not run it from the disk image).
+- Everything it makes or keeps: ~/Library/Application Support/MAKER-LAB (reports, uploads, the glyph cache, logs). An update never touches it.
+- Stitch files it builds: the MAKER-LAB folder inside the design folder it finds (Google Drive > HOBBYLAND > EMBROIDER on the author's Mac).
+
+Not included
+------------
+Mac fonts are read from the Mac itself; the app ships none. The first Build in a font takes longer while the app measures its letters once.
