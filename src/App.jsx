@@ -14,7 +14,7 @@ const APPS_DEFAULT = [
 stack:["HTML","JS","Netlify"],
 description:"The primary digital portfolio and enterprise gateway. Showcasing all active brands, creative services, audio releases, and public project logs.",
 url:"https://fookn-oats.enterprises", ghRepo:"this-is-oats-mgmt/fookn-oats-main", color:T.gold },
-{ id:"oats-mgmt", name:"OATS MGMT", emoji:"⬡", version:"v0.8.16", status:"live", progress:78,
+{ id:"oats-mgmt", name:"OATS MGMT", emoji:"⬡", version:"v0.8.22", status:"live", progress:80,
 stack:["React","Vite","Firebase","Vercel"],
 description:"The primary workspace hub. Central tracking, metrics, and operations dashboard for FOOK'n OATS ENTERPRISES.",
 url:"https://oats-mgmt.vercel.app", ghRepo:"this-is-OATS/O.A.T.S.MGMT-APP", color:T.gold },
@@ -78,21 +78,21 @@ url:null, ghRepo:null, color:T.purple },
 stack:["Flask","Python","Claude Vision"],
 description:"Screenshot text extractor. Sorting ~2,600 iCloud screenshots into HQ zones.",
 url:null, ghRepo:"this-is-oats-mgmt/shotsort", color:T.blue, category:"internal" },
-{ id:"voice-memo-pipeline", name:"Voice Memo Pipeline", emoji:"🎙️", version:"v0.5", status:"in-dev", progress:65,
-stack:["Notion API","Apple Voice Memos","Google Drive"],
-description:"Automated pipeline capturing local voice memos, checking text alignments, and processing transcripts straight into Notion.",
-url:null, ghRepo:null, color:T.red, category:"internal" },
-{ id:"media-transcriber", name:"Media Transcriber", emoji:"🎞️", version:"v0.1", status:"live", progress:60,
-stack:["NAS","Audio/Video","Transcription","Local"],
-description:"Local media monitoring utility. Scans local storage directories and media files to cross-check transcription logs.",
+{ id:"voice-memo-pipeline", name:"Voice Memos", emoji:"🎙️", version:"v1.4.128", status:"live", progress:85,
+stack:["Python","Whisper","Notion","Vercel","ntfy"],
+description:"Everything said or filmed, handled: phone memos, watch/phone dictation (the walkie) and camera videos are transcribed, summarized in a line, sorted, turned into to-dos, searchable, backed up five ways and cleared off the phone. The to-dos feed OATS MGMT.",
+url:"https://claude.ai/artifact/LkdLN98JLmYSTFHUdgwgrr", ghRepo:null, color:T.red, category:"internal" },
+{ id:"media-transcriber", name:"Media Transcriber", emoji:"🎞️", version:"v0.7.10", status:"live", progress:70,
+stack:["Python","Whisper","NAS","Notion"],
+description:"Nightly on the Mac: every video on the NAS (the 8,308-video Photos export and each night's new ones) transcribed, summarized and logged to Notion Media Logs, with captions exported and to-dos filed like a memo.",
 url:null, ghRepo:"this-is-OATS/media_transcriber", color:T.blue, category:"internal" },
 { id:"will-oats-tree", name:"Will Oats Tree", emoji:"🌳", version:"v3.2", status:"live", progress:70,
 stack:["Three.js","WebGL","Vercel"],
 description:"An interactive 3D spatial node mapping a 12-zone lifetime encyclopedia and multi-year data archive. Functions as the generative WebGL visual framework and core energy source code for FOE",
 url:"https://will-oats-tree.vercel.app", ghRepo:"this-is-OATS/will-oats-tree", color:T.green },
-{ id:"encycle", name:"Encycle-Oats-Paedia", emoji:"📼", version:"v0.0", status:"planned", progress:8,
+{ id:"encycle", name:"Waters Within", emoji:"📼", version:"v0.0", status:"planned", progress:8,
 stack:["Audio","AI","Archive"],
-description:"Personal audio logging and indexing engine designed to match data channels with internal tracking tools.",
+description:"Personal POV audio chronicle, twin knowledge with WatersAbove. The capture half already exists as Voice Memos; this is the chronicle and publishing layer on top of it. Was called Encycle-Oats-Paedia.",
 url:null, ghRepo:null, color:T.amber },
 { id:"convergance", name:"Convergance Tool", emoji:"⟁", version:"v0.0", status:"planned", progress:5,
 stack:["TBD"], description:"Data intersection and alignment tool. Purpose and integration pipelines TBD.",
@@ -137,7 +137,9 @@ const saved = JSON.parse(s);
 return APPS_DEFAULT.map(def => {
 const cached = saved.find(a => a.id === def.id);
 if (!cached) return def;
-return { ...cached, version: def.version, url: def.url, ghRepo: def.ghRepo, stack: def.stack, description: def.description, status: def.status, progress: def.progress };
+// The code is the source for everything on the card; the cache only ever held
+// a stale name ("Encycle-Oats-Paedia" survived its rename this way, 2026-11-10).
+return { ...cached, ...def };
 });
 } catch { return APPS_DEFAULT; }
 });
