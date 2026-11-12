@@ -50,9 +50,18 @@ url:"https://oats-tracker.vercel.app", ghRepo:"this-is-OATS/crew-call-mapper", c
 stack:["JS","Canvas","Vercel"],
 description:"Super-Tech LX truck pack planner. Truss & gear layouts by truck and level, to the inch.",
 url:"https://truck-map-app.vercel.app", ghRepo:"this-is-OATS/truck-map-app", color:T.amber },
-{ id:"oats-waymark", name:"OATS WAYMARK", emoji:"📍", version:"v1.0.0", status:"live", progress:60,
-stack:["Google Timeline","Canvas","D3"],
-description:"Suite of Google Timeline tools: Hours Infographic, Timeline Reel, Travel Atlas. One export feeds all of them, read on-device.",
+{ id:"oats-waymark", name:"OATS WAYMARK", emoji:"📍", version:"v1.0.1", status:"live", progress:65,
+stack:["Google Timeline","OwnTracks","Canvas","D3"],
+description:"Your phone already knows where your time went. WAYMARK turns that location history into proof: hours on site, miles, fuel and every trip, as pages, maps and reels you can hand to anyone. Drop in one Google Timeline export and every tool updates.",
+tools:[
+{ name:"Hours Infographic", purpose:"One-page proof of time at a place: days on site, weeks over 40, overnights, records.", url:"https://claude.ai/artifact/3peaFm4aQ8j89HDduuioFL" },
+{ name:"Kenosha Hours", purpose:"The warehouse edition, Jan 12 to Nov 12, 2026: 1,207 h across 174 days.", url:"https://claude.ai/artifact/AEAiZu39epXcSLyVdTeaLG" },
+{ name:"Road Hours", purpose:"A touring run split into show, shop / prep, travel and HQ, job by job.", url:"https://claude.ai/artifact/Wz9roZapsSMgc3D1MDBiio" },
+{ name:"Timeline Reel", purpose:"Animated map of every visit and commute between two places, with hours, miles and fuel counting up. GIF export.", url:"https://claude.ai/artifact/Y5mSUCssACvr3rRgoTXgqc" },
+{ name:"Kenosha Map", purpose:"The warehouse year as a reel: home-to-shop commutes, 4,923 mi and $807 in fuel.", url:"https://claude.ai/artifact/32ftqdbvTp5um3wdaV3d3E" },
+{ name:"Travel Atlas", purpose:"Every drive, flight and place since 2018, world view to street level, with playback.", url:"https://claude.ai/artifact/2V4LJCjc3FGTVaNbCoHcua" },
+{ name:"OATS HOURS", purpose:"The live feed: OwnTracks logs the phone all day; Timeline imports (now straight from Drive) fill the gaps.", url:"https://loc.crewfam.app" },
+],
 url:"https://claude.ai/artifact/57sQ9R49ADJV83cXNrwqsA", ghRepo:null, color:T.purple, category:"internal" },
 { id:"oats-ndi-hub", name:"OATS NDI HUB", emoji:"🎛", version:"v0.2.3", status:"live", progress:55,
 stack:["Swift","NDI","WebSocket","macOS"],
@@ -231,6 +240,21 @@ style={{ background:T.card, border:`1px solid ${isEditing ? accent+"90" : accent
 
 <div style={{ fontSize:12, color:T.textMid, lineHeight:1.55, marginBottom:10 }}>{app.description}</div>
 
+{app.tools && (
+<div style={{ display:"grid", gap:6, marginBottom:12 }}>
+{app.tools.map(t => (
+<a key={t.name} href={t.url} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}
+style={{ display:"block", textDecoration:"none", background:T.surface, border:`1px solid ${T.border}`, borderLeft:`2px solid ${accent}`, borderRadius:8, padding:"7px 10px" }}>
+<div style={{ display:"flex", justifyContent:"space-between", gap:8 }}>
+<span style={{ fontSize:11, fontWeight:700, color:T.text }}>{t.name}</span>
+<span style={{ fontSize:10, color:accent, fontFamily:"monospace" }}>↗</span>
+</div>
+<div style={{ fontSize:10.5, color:T.textMid, lineHeight:1.45, marginTop:2 }}>{t.purpose}</div>
+</a>
+))}
+</div>
+)}
+
 <div style={{ background:T.surface, borderRadius:8, padding:"8px 10px", marginBottom:12, border:`1px solid ${T.border}` }}>
 <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", gap:8 }}>
 <span style={{ fontSize:10, fontFamily:"monospace", color:app.color, fontWeight:700, letterSpacing:"0.04em", flexShrink:0 }}>{app.version}</span>
@@ -343,7 +367,7 @@ return (
 <div>
 <div style={{ fontSize:13, fontWeight:800, color:T.gold, fontFamily:"monospace", letterSpacing:"0.1em", textTransform:"uppercase", lineHeight:1.2 }}>OATS APPS</div>
 <div style={{ fontSize:8, color:T.textDim, fontFamily:"monospace", letterSpacing:"0.1em", textTransform:"uppercase" }}>Oatmeal Intelligence Division</div>
-<div style={{ fontSize:8, color:T.gold, fontFamily:"monospace", opacity:0.5, marginTop:1 }}>v2.7 · 2026.10.25</div>
+<div style={{ fontSize:8, color:T.gold, fontFamily:"monospace", opacity:0.5, marginTop:1 }}>v2.8 · 2026.11.12</div>
 </div>
 </div>
 <div style={{ display:"flex", gap:6 }}>
